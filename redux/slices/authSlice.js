@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialUserState = {
+  loggedIn: false,
   user: null,
 };
 
@@ -10,12 +11,12 @@ export const authSlice = createSlice({
   reducers: {
     // methods to change state
     login: (state, action) => {
-      console.log("state: ", state.user);
+      state.loggedIn = true;
       state.user = action.payload;
-      console.log(action.payload);
       localStorage.setItem("token", action.payload.token);
     },
     logout: (state) => {
+      state.loggedIn = false;
       state.user = null;
       localStorage.removeItem("token");
     },

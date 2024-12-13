@@ -13,16 +13,18 @@ import { User } from "../../../model/db_models/auth";
 export default async function handler(req, res) {
   // Check if the request method is POST
   if (req.method !== "POST") {
+    console.log("Request method not allowed");
     return res.status(405).json({ message: "Method not allowed" });
   }
 
   // Log the request body for debugging purposes
-  console.log(req.body);
+  console.log("register route req body: ", req.body);
 
   const { username, password } = req.body;
 
   // Validate the presence of username and password
   if (!username || !password) {
+    console.log("Username or password not provided");
     return res
       .status(400)
       .json({ message: "Username and password are required" });
@@ -31,16 +33,19 @@ export default async function handler(req, res) {
   try {
     // Connect to the database
     await dbConnect();
+    console.log("Database connected");
 
     // Check if the user already exists in the database
     const existingUser = await User.findOne({ username });
 
     if (existingUser) {
+      console.log("User already exists");
       return res.status(409).json({ message: "User already exists" });
     }
 
     // Hash the password before saving it to the database
     const hashedPassword = await hash(password, 10);
+    console.log("Password hashed");
 
     // Create a new user instance
     const newUser = new User({
@@ -57,13 +62,15 @@ export default async function handler(req, res) {
 
     // Save the new user to the database
     await newUser.save();
-    console.log(`\n\nUser created:\n\n${newUser}\n\n`);
+    console.log(`User created: ${newUser}`);
 
     // Send a success response with the username and token
-    res.status(201).json({ message: "User created", username, token });
+    res
+      .status(201)
+      .json({ message: "User created", username, token, id: newUser._id });
   } catch (error) {
     // Log any errors that occur during the process
-    console.log(`\nCatched error:\n\n${error}\n\n`);
+    console.log(`Error occurred: ${error}`);
     res.status(500).json({ message: "Something went wrong" });
   }
 }

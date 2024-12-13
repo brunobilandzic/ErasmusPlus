@@ -7,7 +7,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 // store is the global state
 import store from "../redux/store";
 // login and logout is a method to change the state
-import { login } from "../redux/slices/authSlice";
+import { login, logout } from "../redux/slices/authSlice";
 import axios from "axios";
 
 // Layout is a wrapper for the app
@@ -39,7 +39,7 @@ export const AuthWrap = ({ children }) => {
       // send a request to get the user from the token
       const token = localStorage.getItem("token");
       // for debugging:
-       console.log("token before if statement:", token);
+      console.log("token before if statement:", token);
       // console.log(`logic test before logic rest: ${token != null} ${typeof token === "string"} ${token?.length > 0} ${token!=undefined} ${token != "undefined"}`);
       if (token != "undefined" && token != null) {
         // also for debugging:
@@ -75,14 +75,18 @@ export const AuthWrap = ({ children }) => {
 
   return (
     <>
-      <Navbar />
+      <Navbar authState={authState} />
       <main className="p-4">{children}</main>
     </>
   );
 };
 
-function Navbar({ user }) {
+function Navbar({ authState }) {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log(authState);
+  }, [authState]);
   return (
     <div
       onClick={() => {
@@ -118,15 +122,35 @@ function Navbar({ user }) {
           </li>
         </ul>
       </nav>
-      <div
-        className="text-xl hover:cursor-pointer"
-        onClick={(e) => {
-          e.stopPropagation();
-          console.log("clicked");
-        }}>
-        <Link href="/register">
-          <MdPerson />
-        </Link>
+      <div className="flex items-center gap-2">
+        <div className="hover:cursor-pointer items-center flex gap-2 ">
+          {authState.loggedIn ? (
+            <>
+              <div onClick={() => dispatch(logout())}>Logout</div>
+
+              <div>{authState?.user?.username}</div>
+            </>
+          ) : (
+            <>
+              <Link href="/login">
+                <div className="hover:cursor-pointer">Login</div>
+              </Link>
+              <Link href="/register">
+                <div className=" hover:cursor-pointer">Register</div>
+              </Link>
+            </>
+          )}
+        </div>
+        <div
+          className="text-xl hover:cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation();
+            console.log("clicked");
+          }}>
+          <Link href="/register">
+            <MdPerson />
+          </Link>
+        </div>
       </div>
     </div>
   );
