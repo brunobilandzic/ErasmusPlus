@@ -13,6 +13,7 @@ export function Register() {
     username: "",
     password: "",
     repeatPassword: "",
+    role: "admin",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -116,6 +117,17 @@ export function Register() {
           placeholder="Repeat Password"
           className="p-2 border border-gray-300"
         />
+        {/* Role selection dropdown */}
+        <select
+          id="role"
+          name="role"
+          value={userCredentials.role}
+          onChange={handleChange}
+          className="p-2 border border-gray-300 w-full">
+          <option value="admin">Admin</option>
+          <option value="student">Student</option>
+          <option value="professor">Professor</option>
+        </select>
         {/* Register button */}
         <button
           onClick={handleSubmit}
