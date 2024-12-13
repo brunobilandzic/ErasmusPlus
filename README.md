@@ -3,7 +3,7 @@
 ### Team members:
  1. Bruno Bilandžić
  2. Ivo Damjanović
- 3. Ana
+ 3. Ana Miljak Karlo
  4. Ivan Kovačević
 
  `git clone https://github.com/brunobilandzic/erasmusplus.git`
