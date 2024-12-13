@@ -89,9 +89,7 @@ function Navbar({ user }) {
         if (isOpen) setIsOpen(false);
         else setIsOpen(true);
       }}
-      className={`bg-gray-800 p-4 flex justify-between text-slate-200 ${
-        !isOpen &&  "items-center"
-      }`}>
+      className={`bg-gray-800 p-4 flex justify-between text-slate-200 items-start`}>
       <nav className="">
         <div
           className={`md:hidden ${
@@ -121,6 +119,7 @@ function Navbar({ user }) {
         </ul>
       </nav>
       <div
+        className="text-xl hover:cursor-pointer"
         onClick={(e) => {
           e.stopPropagation();
           console.log("clicked");
