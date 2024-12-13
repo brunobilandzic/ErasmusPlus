@@ -6,6 +6,11 @@ import mongoose from "mongoose";
 const userSchema = {
   username: { type: String, required: true },
   password: { type: String, required: true },
+  role: { type: String, enum: ["admin", "student", "professor"] },
+  roleRequest: { type: mongoose.Schema.Types.ObjectId, ref: "RoleRequest" },
+  adminRole: { type: mongoose.Schema.Types.ObjectId, ref: "AdminRole" },
+  studentRole: { type: mongoose.Schema.Types.ObjectId, ref: "StudentRole" },
+  professorRole: { type: mongoose.Schema.Types.ObjectId, ref: "ProfessorRole" },
 };
 
 // Create a new Mongoose schema using the user schema definition
