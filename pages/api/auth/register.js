@@ -3,7 +3,7 @@ import { hash } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User } from "../../../model/db_models/auth";
 import { roles } from "@/constatns";
-import { RoleRequest } from "@/model/db_models/roles";
+import { makeRoleRequest } from "@/controller/administration/role_req_management";
 
 // client calls this route in order to register
 // routes in next js function by having a route name written as the file name
@@ -67,12 +67,7 @@ export default async function handler(req, res) {
       { expiresIn: process.env.JWT_EXPIRES_IN }
     );
     // create new role request for admin to approve
-    const newRoleRequest = new RoleRequest({
-      userId: newUser._id,
-      role,
-    });
-
-    await newRoleRequest.save();
+    const newRoleRequest = await makeRoleRequest(newUser._id, role);
 
     // Save the new user to the database
     await newUser.save();

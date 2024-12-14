@@ -17,6 +17,8 @@ export const makeRoleRequest = async (userId, role) => {
 
         console.log(`Role request created: ${newRoleRequest}`);
 
+        return newRoleRequest;
+
     } catch (error) {
         console.error("Error making role request: ", error);
         throw new Error("Error making role request");
