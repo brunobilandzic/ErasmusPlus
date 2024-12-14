@@ -16,6 +16,7 @@ export default function handler(req, res) {
   try {
     // verify the token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("decoded", decoded);
     // if its not decoded it will throw an error that will be catched in the catch block
     return res.status(200).json({ user: decoded });
   } catch (error) {

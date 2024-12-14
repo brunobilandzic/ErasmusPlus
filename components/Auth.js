@@ -46,7 +46,7 @@ export function Register() {
       const data = res.data;
 
       // Alert user and reset form
-      alert(`User registered: ${data.username}`);
+      alert(`User registered: ${data.user?.username}`);
       setuserCredentials({
         username: "",
         password: "",
@@ -55,7 +55,7 @@ export function Register() {
 
       // Dispatch login action to set user in global state
       dispatch(
-        login({ username: data.username, id: data.id, token: data.token })
+        login({user: data.user, token: data.token, roleRequest: data.newRoleRequest})
       );
 
       // Redirect to home page
@@ -173,7 +173,7 @@ export const Login = () => {
       const data = res.data;
 
       // Alert user and reset form
-      alert(`User logged in: ${data.username}`);
+      alert(`User logged in: ${data.user?.username}`);
       setuserCredentials({
         username: "",
         password: "",
@@ -181,7 +181,7 @@ export const Login = () => {
 
       // Dispatch login action to set user in global state
       dispatch(
-        login({ username: data.username, id: data.id, token: data.token })
+        login({user: data.user, token: data.token, roleRequest: data.roleRequest})
       );
 
       // Redirect to home page

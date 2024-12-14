@@ -38,17 +38,8 @@ export const AuthWrap = ({ children }) => {
       // if token is not undefined
       // send a request to get the user from the token
       const token = localStorage.getItem("token");
-      // for debugging:
-      console.log("token before if statement:", token);
-      // console.log(`logic test before logic rest: ${token != null} ${typeof token === "string"} ${token?.length > 0} ${token!=undefined} ${token != "undefined"}`);
+
       if (token != "undefined" && token != null) {
-        // also for debugging:
-        // console.log(
-        //   `logic test after logic test: ${token !== null} ${
-        //     typeof token === "string"
-        //   } ${token?.length > 0} ${token != undefined} ${token != "undefined"}`
-        // );
-        // console.log("token after logic test:", token);
         try {
           // get user from token
           // handler in pages/api/auth/user.js
@@ -60,7 +51,13 @@ export const AuthWrap = ({ children }) => {
           });
           // if user is in the response data, dispatch login action to set the user in the global state
           if (response?.data?.user) {
-            dispatch(login(response.data.user));
+            dispatch(
+              login({
+                user: data.user,
+                token: data.token,
+                roleRequest: data.roleRequest,
+              })
+            );
           }
         } catch (error) {
           console.error("Error fetching user data:", error);

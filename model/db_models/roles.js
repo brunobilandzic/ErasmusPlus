@@ -1,6 +1,8 @@
+import mongoose from "mongoose";
+
 // Schema for role requests
 const roleRequestSchema = {
-  userId: { type: ObjectId, required: true }, // ID of the user requesting the role
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true }, // ID of the user requesting the role
   role: { type: String, enum: ["admin", "student", "professor"] }, // Role being requested
   status: {
     type: String,
@@ -11,22 +13,22 @@ const roleRequestSchema = {
 
 // Schema for admin role
 const adminRole = {
-  userId: { type: ObjectId, required: true, ref: "User" }, // ID of the user with admin role
-  roleRequests: [{ type: ObjectId, ref: "RoleRequest" }], // List of role requests to respond to
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" }, // ID of the user with admin role
+  roleRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: "RoleRequest" }], // List of role requests to respond to
 };
 
 // Schema for student role
 const studentRole = {
-  userId: { type: ObjectId, required: true, ref: "User" }, // ID of the user with student role
-  applications: [{ type: ObjectId, ref: "Application" }], // List of applications
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" }, // ID of the user with student role
+  applications: [{ type: mongoose.Schema.Types.ObjectId, ref: "Application" }], // List of applications
   grade: { type: Number }, // Grade of the student
 };
 
 // Schema for professor role
 const professorRole = {
-  userId: { type: ObjectId, required: true, ref: "User" }, // ID of the user with professor role
-  university: [{ type: ObjectId, ref: "University" }], // List of universities
-  applications: [{ type: ObjectId, ref: "Application" }], // List of applications
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" }, // ID of the user with professor role
+  university: [{ type: mongoose.Schema.Types.ObjectId, ref: "University" }], // List of universities
+  applications: [{ type: mongoose.Schema.Types.ObjectId, ref: "Application" }], // List of applications
 };
 
 // Create RoleRequest schema

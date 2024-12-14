@@ -2,6 +2,8 @@ import dbConnect from "../../../model/mongooseConnect";
 import { hash } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User } from "../../../model/db_models/auth";
+import { roles } from "@/constatns";
+import { RoleRequest } from "@/model/db_models/roles";
 
 // client calls this route in order to register
 // routes in next js function by having a route name written as the file name
@@ -20,7 +22,7 @@ export default async function handler(req, res) {
   // Log the request body for debugging purposes
   console.log("register route req body: ", req.body);
 
-  const { username, password } = req.body;
+  const { username, password, role } = req.body;
 
   // Validate the presence of username and password
   if (!username || !password) {
@@ -28,6 +30,11 @@ export default async function handler(req, res) {
     return res
       .status(400)
       .json({ message: "Username and password are required" });
+  }
+
+  if (!roles.includes(role)) {
+    console.log("Role not valid");
+    return res.status(400).json({ message: "Role not valid" });
   }
 
   try {
@@ -59,15 +66,25 @@ export default async function handler(req, res) {
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES_IN }
     );
+    // create new role request for admin to approve
+    const newRoleRequest = new RoleRequest({
+      userId: newUser._id,
+      role,
+    });
+
+    await newRoleRequest.save();
 
     // Save the new user to the database
     await newUser.save();
     console.log(`User created: ${newUser}`);
 
-    // Send a success response with the username and token
-    res
-      .status(201)
-      .json({ message: "User created", username, token, id: newUser._id });
+    // Send a success response with the username and token and new role request so client can keep track of it
+    res.status(201).json({
+      message: "User created",
+      user: { username: newUser.username, id: newUser._id },
+      token,
+      newRoleRequest,
+    });
   } catch (error) {
     // Log any errors that occur during the process
     console.log(`Error occurred: ${error}`);
