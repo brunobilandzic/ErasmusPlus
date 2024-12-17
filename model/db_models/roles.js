@@ -1,59 +1,44 @@
 import mongoose from "mongoose";
 
-// Schema for role requests
-const roleRequestSchema = {
-  userId: { type: mongoose.Schema.Types.ObjectId, required: true }, // ID of the user requesting the role
-  role: { type: String, enum: ["admin", "student", "professor"] }, // Role being requested
-  status: {
-    type: String,
-    enum: ["pending", "approved", "rejected"],
-    default: "pending", // Default status is pending
-  },
-};
-
 // Schema for admin role
-const adminRole = {
-  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" }, // ID of the user with admin role
-  roleRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: "RoleRequest" }], // List of role requests to respond to
-};
+const adminRoleSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User", description: "ID of the user with admin role" },
+});
 
 // Schema for student role
-const studentRole = {
-  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" }, // ID of the user with student role
-  applications: [{ type: mongoose.Schema.Types.ObjectId, ref: "Application" }], // List of applications
-  grade: { type: Number }, // Grade of the student
-};
+const studentRoleSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User", description: "ID of the user with student role" },
+  applications: [{ type: mongoose.Schema.Types.ObjectId, ref: "Application", description: "List of applications" }],
+  grade: { type: Number, description: "Grade of the student" },
+});
 
 // Schema for professor role
-const professorRole = {
-  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" }, // ID of the user with professor role
-  university: [{ type: mongoose.Schema.Types.ObjectId, ref: "University" }], // List of universities
-  applications: [{ type: mongoose.Schema.Types.ObjectId, ref: "Application" }], // List of applications
-};
+const professorRoleSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User", description: "ID of the user with professor role" },
+  university: [{ type: mongoose.Schema.Types.ObjectId, ref: "University", description: "List of universities" }],
+  applications: [{ type: mongoose.Schema.Types.ObjectId, ref: "Application", description: "List of applications" }],
+});
 
-// Create RoleRequest schema
-const RoleRequestSchema = new mongoose.Schema(roleRequestSchema);
-
-// Export RoleRequest model
-export const RoleRequest =
-  mongoose.models.RoleRequest ||
-  mongoose.model("RoleRequest", RoleRequestSchema);
-
-// Create AdminRole schema
-const AdminRoleSchema = new mongoose.Schema(adminRole);
-// Create StudentRole schema
-const StudentRoleSchema = new mongoose.Schema(studentRole);
-// Create ProfessorRole schema
-const ProfessorRoleSchema = new mongoose.Schema(professorRole);
+// Schema for coordinator role
+const coordinatorRoleSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User", description: "ID of the user with coordinator role" },
+  university: [{ type: mongoose.Schema.Types.ObjectId, ref: "University", description: "List of universities" }],
+  applications: [{ type: mongoose.Schema.Types.ObjectId, ref: "Application", description: "List of applications" }],
+  evidentions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Evidention", description: "List of evidentions" }],
+});
 
 // Export AdminRole model
 export const AdminRole =
-  mongoose.models.AdminRole || mongoose.model("AdminRole", AdminRoleSchema);
+  mongoose.models.AdminRole || mongoose.model("AdminRole", adminRoleSchema);
+
 // Export StudentRole model
 export const StudentRole =
-  mongoose.models.StudentRole ||
-  mongoose.model("StudentRole", StudentRoleSchema);
+  mongoose.models.StudentRole || mongoose.model("StudentRole", studentRoleSchema);
+
 // Export ProfessorRole model
 export const ProfessorRole =
-  mongoose.models.ProfessorRole ||
-  mongoose.model("ProfessorRole", ProfessorRoleSchema);
+  mongoose.models.ProfessorRole || mongoose.model("ProfessorRole", professorRoleSchema);
+
+// Export CoordinatorRole model
+export const CoordinatorRole =
+  mongoose.models.CoordinatorRole || mongoose.model("CoordinatorRole", coordinatorRoleSchema);
