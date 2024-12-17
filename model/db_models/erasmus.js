@@ -44,15 +44,31 @@ const evidentionSchema = {
 };
 
 const ApplicationSchema = {
-  studentId: { type: mongoose.Schema.Types.ObjectId, ref: "StudentRole", description: "ID of the student" },
-  professorId: { type: mongoose.Schema.Types.ObjectId, ref: "ProfessorRole", description: "ID of the professor" },
+  studentId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "StudentRole",
+    description: "ID of the student",
+  },
+  professorId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "ProfessorRole",
+    description: "ID of the professor",
+  },
   coordinatorId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "CoordinatorRole",
     description: "ID of the coordinator",
   },
-  erasmusId: { type: mongoose.Schema.Types.ObjectId, ref: "ErasmusProgram", description: "ID of the Erasmus program" },
-  universityId: { type: mongoose.Schema.Types.ObjectId, ref: "University", description: "ID of the university" },
+  erasmusId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "ErasmusProgram",
+    description: "ID of the Erasmus program",
+  },
+  universityId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "University",
+    description: "ID of the university",
+  },
   status: {
     type: String,
     enum: ["pending", "accepted", "rejected"],
@@ -60,6 +76,42 @@ const ApplicationSchema = {
     description: "Status of the application",
   },
   comment: { type: String, description: "Comment on the application" },
+  grade_average: {
+    type: Number,
+    min: 3.0,
+    max: 5.0,
+    description: "Average grade achieved in the previous academic year",
+  },
+  first_mobility: {
+    type: Boolean, // True if the student has not been on exchange before, False otherwise
+    description: "Indicates if this is the student’s first mobility",
+  },
+  motivation_letter_score: {
+    type: Number,
+    min: 1.0,
+    max: 5.0,
+    description: "Score for the motivation letter",
+  },
+  english_language_proficiency: {
+    type: Number,
+    min: 2.0,
+    max: 5.0,
+    description: "Proficiency in the English language",
+  },
+  host_country_language_proficiency: {
+    type: Number,
+    min: 1.0,
+    max: 5.0,
+    description: "Proficiency in the host country’s language",
+  },
+  initiated_llp_agreement: {
+    type: Boolean, // True if the student initiated the LLP agreement
+    description: "Indicates if the student initiated the LLP agreement",
+  },
+  esn_membership: {
+    type: Boolean, // True if the student is active in ESN
+    description: "Indicates if the student is a member and active in ESN",
+  },
 };
 
 export const University =
