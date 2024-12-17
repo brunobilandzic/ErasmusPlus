@@ -30,9 +30,7 @@ export function Register() {
     e.preventDefault();
     console.log(
       `Sending request to register user:\n\n${JSON.stringify(
-        userCredentials,
-        null,
-        2
+        userCredentials
       )}\n`
     );
     try {
@@ -51,12 +49,11 @@ export function Register() {
         username: "",
         password: "",
         repeatPassword: "",
+        role: "admin",
       });
 
       // Dispatch login action to set user in global state
-      dispatch(
-        login({user: data.user, token: data.token, roleRequest: data.newRoleRequest})
-      );
+      dispatch(login({ user: data.user, token: data.token }));
 
       // Redirect to home page
       router.push("/");
@@ -127,6 +124,7 @@ export function Register() {
           <option value="admin">Admin</option>
           <option value="student">Student</option>
           <option value="professor">Professor</option>
+          <option value="coordinator">Coordinator</option>
         </select>
         {/* Register button */}
         <button
@@ -180,9 +178,8 @@ export const Login = () => {
       });
 
       // Dispatch login action to set user in global state
-      dispatch(
-        login({user: data.user, token: data.token, roleRequest: data.roleRequest})
-      );
+      // we are sending token only to set it later in local storage in redux slice
+      dispatch(login({ user: data.user, token: data.token }));
 
       // Redirect to home page
       router.push("/");

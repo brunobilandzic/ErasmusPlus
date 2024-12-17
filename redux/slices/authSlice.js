@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialUserState = {
   loggedIn: false,
   user: null,
-  roleRequest: null,
 };
 
 export const authSlice = createSlice({
@@ -12,11 +11,12 @@ export const authSlice = createSlice({
   reducers: {
     // methods to change state
     login: (state, action) => {
-      console.log(action.payload)
+      console.log("setting login state", action.payload);
       state.loggedIn = true;
       state.user = action.payload.user;
-      localStorage.setItem("token", action.payload.token);
-      state.roleRequest = action.payload.roleRequest;
+      // check if token in payload to set token in local storage
+      action.payload.token &&
+        localStorage.setItem("token", action.payload.token);
     },
     logout: (state) => {
       Object.assign(state, initialUserState);
