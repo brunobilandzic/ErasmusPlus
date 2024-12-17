@@ -4,13 +4,46 @@ import mongoose from "mongoose";
 // this part is defining the database and this is what we need to define first
 // many models like this (university, student, application, etc)
 const userSchema = {
-  username: { type: String, required: true, description: "Username of the user" },
-  password: { type: String, required: true, description: "Password of the user" },
-  role: { type: String, enum: ["admin", "student", "professor"], description: "Role of the user" },
-  roleRequest: { type: mongoose.Schema.Types.ObjectId, ref: "RoleRequest", description: "Role request reference" },
-  adminRole: { type: mongoose.Schema.Types.ObjectId, ref: "AdminRole", description: "Admin role reference" },
-  studentRole: { type: mongoose.Schema.Types.ObjectId, ref: "StudentRole", description: "Student role reference" },
-  professorRole: { type: mongoose.Schema.Types.ObjectId, ref: "ProfessorRole", description: "Professor role reference" },
+  username: {
+    type: String,
+    required: true,
+    description: "Username of the user",
+  },
+  password: {
+    type: String,
+    required: true,
+    description: "Password of the user",
+  },
+  role: {
+    type: String,
+    enum: ["admin", "student", "professor", "coordinator"],
+    description: "Role of the user",
+  },
+  roleRequest: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "RoleRequest",
+    description: "Role request reference",
+  },
+  adminRole: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "AdminRole",
+    description: "Admin role reference",
+  },
+  studentRole: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "StudentRole",
+    description: "Student role reference",
+  },
+  professorRole: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "ProfessorRole",
+    description: "Professor role reference",
+  },
+  coordinatorRole: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CoordinatorRole",
+    description: "Coordinator role reference",
+  },
 };
 
 // Create a new Mongoose schema using the user schema definition

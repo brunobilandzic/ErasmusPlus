@@ -1,7 +1,7 @@
 import { compare } from "bcryptjs";
-import { sign } from "jsonwebtoken";
 import dbConnect from "@/model/mongooseConnect";
 import { User } from "@/model/db_models/auth";
+import { signToken } from "@/controller/auth";
 
 export default async function handler(req, res) {
   // Check if the request method is POST
@@ -43,17 +43,12 @@ export default async function handler(req, res) {
   }
 
   // Generate a JWT token
-  const token = sign(
-    { username: user.username, id: user._id },
-    process.env.JWT_SECRET,
-    { expiresIn: process.env.JWT_EXPIRES_IN }
-  );
+  const token = await signToken(user);
 
   console.log("Authentication successful");
   // Respond with the token and user details
   res.status(200).json({
     token,
     user: { username: user.username, id: user._id },
-    roleRequest: user.roleRequest,
   });
 }

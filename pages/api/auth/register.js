@@ -1,10 +1,10 @@
 import dbConnect from "../../../model/mongooseConnect";
 import { hash } from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { User } from "../../../model/db_models/auth";
-import { roles } from "@/constatns";
-import { makeRoleRequest } from "@/controller/administration/role_req_management";
+import { roleMap, roles } from "@/constatns";
+import { signToken } from "@/controller/auth";
 
+// we use jose for tokens because it can be on edge for middleware can use it
 // client calls this route in order to register
 // routes in next js function by having a route name written as the file name
 // file exports (default) only one function which can be called whatever, but must check req.method and act accordingly
@@ -58,16 +58,24 @@ export default async function handler(req, res) {
     const newUser = new User({
       username,
       password: hashedPassword,
+      role,
     });
 
+    // Create a new role instance with userId as the user's id
+    // map the role to the role class in rolemap
+    const newRole = new roleMap[role]({ userId: newUser._id });
+
     // Generate a JWT token for the new user
-    const token = jwt.sign(
-      { username: newUser.username, id: newUser._id },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN }
-    );
-    // create new role request for admin to approve
-    const newRoleRequest = await makeRoleRequest(newUser._id, role);
+    const token = await signToken(newUser);
+    // get role field that has to be in user model
+    const roleText = `${role}Role`;
+    console.log(`Creating field in user: ${roleText}`);
+    newUser[roleText] = newRole._id;
+    // check if role name field valid
+    console.log(`User w role created: ${newUser}`);
+    // save the new role to the database
+    await newRole.save();
+    console.log(`${roleText} created`, newRole);
 
     // Save the new user to the database
     await newUser.save();
@@ -76,9 +84,8 @@ export default async function handler(req, res) {
     // Send a success response with the username and token and new role request so client can keep track of it
     res.status(201).json({
       message: "User created",
-      user: { username: newUser.username, id: newUser._id },
+      user: { username: newUser.username, id: newUser._id, role: newUser.role },
       token,
-      newRoleRequest,
     });
   } catch (error) {
     // Log any errors that occur during the process

@@ -38,26 +38,35 @@ export const AuthWrap = ({ children }) => {
       // if token is not undefined
       // send a request to get the user from the token
       const token = localStorage.getItem("token");
-
+      console.log("token from local storage is", token);
       if (token != "undefined" && token != null) {
         try {
           // get user from token
           // handler in pages/api/auth/user.js
-          const response = await axios.get("/api/auth/user", {
-            // append the token to the request via headers
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+          const response = await axios
+            .get("/api/auth/user", {
+              // append the token to the request via headers
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .catch((error) => {
+              // had to write this catch because it returns here after the outer catch and breaks the app
+              console.log("invalid token", token);
+            });
           // if user is in the response data, dispatch login action to set the user in the global state
           if (response?.data?.user) {
+            console.log("server responsed to authorize with", response.data);
+            // we are sending token only to set it later in local storage in redux slice
             dispatch(
               login({
-                user: data.user,
-                token: data.token,
-                roleRequest: data.roleRequest,
+                user: response.data.user,
+                token,
               })
             );
+          } else {
+            // token not valid so logout user
+            dispatch(logout());
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
