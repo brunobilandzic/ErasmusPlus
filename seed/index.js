@@ -1,4 +1,4 @@
-import { User } from "../../model/db_models/auth";
+import { User } from "../model/db_models/auth";
 import {
   StudentRole,
   AdminRole,
@@ -9,14 +9,26 @@ import {
 import { admins } from "./data/users";
 import dbConnect from "../model/mongooseConnect";
 
-const seed = async () => {
-  await dbConnect();
+const seed = async () => {};
 
-  await User.deleteMany({});
+export const seedAdmins = async () => {
+  await dbConnect();
+  const seededAdmins = [];
+  const insertAdmins = admins.map(async (admin) => {
+    const user = new User(admin);
+    const adminRole = await new AdminRole({ userId: user._id });
+    user.AdminRole = adminRole._id;
+
+    await user.save();
+    await adminRole.save();
+
+    seededAdmins.push(user);
+  });
+  await Promise.all(insertAdmins);
+
+  return seededAdmins;
 };
 
-const main = async () => {
+export const main = async () => {
   await seed();
 };
-
-main();
