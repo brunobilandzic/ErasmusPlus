@@ -90,9 +90,7 @@ export const AuthWrap = ({ children }) => {
 function Navbar({ authState }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {
-    console.log(authState);
-  }, [authState]);
+
   return (
     <div
       onClick={() => {

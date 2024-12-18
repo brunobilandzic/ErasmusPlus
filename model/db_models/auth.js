@@ -19,11 +19,6 @@ const userSchema = {
     enum: ["admin", "student", "professor", "coordinator"],
     description: "Role of the user",
   },
-  roleRequest: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "RoleRequest",
-    description: "Role request reference",
-  },
   adminRole: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "AdminRole",
