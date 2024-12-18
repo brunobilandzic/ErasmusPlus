@@ -36,7 +36,12 @@ export function Register() {
       const data = res.data;
 
       alert(`User registered: ${data.user?.username}`);
-      setuserCredentials({ username: "", password: "", repeatPassword: "", role: "admin" });
+      setuserCredentials({
+        username: "",
+        password: "",
+        repeatPassword: "",
+        role: "admin",
+      });
       dispatch(login({ user: data.user, token: data.token }));
       router.push("/");
     } catch (error) {
@@ -50,9 +55,11 @@ export function Register() {
   };
 
   return (
-    <div className="flex flex-col items-center space-y-6 py-10 px-4 bg-gray-50">
+    <div className="flex flex-col items-center space-y-6 w-full">
       <h1 className="text-2xl font-bold">Register</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full max-w-md">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col space-y-4 w-full max-w-md">
         <input
           value={userCredentials.username}
           onChange={handleChange}
@@ -145,9 +152,11 @@ export const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center space-y-6 py-10 px-4 bg-gray-50">
+    <div className="flex flex-col items-center space-y-6 w-full ">
       <h1 className="text-2xl font-bold">Login</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full max-w-md">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col space-y-4 w-full max-w-md">
         <input
           value={userCredentials.username}
           onChange={handleChange}
