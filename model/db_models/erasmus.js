@@ -6,6 +6,10 @@ const universitySchema = {
   compatibleUniversities: [
     { type: mongoose.Schema.Types.ObjectId, ref: "University", description: "List of compatible universities" },
   ],
+  students: [{ type: mongoose.Schema.Types.ObjectId, ref: "StudentRole", description: "List of students" }],
+  professors: [{ type: mongoose.Schema.Types.ObjectId, ref: "ProfessorRole", description: "List of professors" }],
+  coordinators: [{ type: mongoose.Schema.Types.ObjectId, ref: "CoordinatorRole", description: "List of coordinators" }],
+  erasmusPrograms: [{ type: mongoose.Schema.Types.ObjectId, ref: "ErasmusProgram", description: "List of Erasmus programs" }],
 };
 
 const erasmusProgramSchema = {
