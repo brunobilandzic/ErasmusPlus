@@ -4,12 +4,12 @@ const universitySchema = {
   name: { type: String, description: "Name of the university" },
   location: { type: String, description: "Location of the university" },
   compatibleUniversities: [
-    { type: mongoose.Schema.Types.ObjectId, ref: "University", description: "List of compatible universities" },
+    { type: mongoose.Schema.Types.ObjectId, ref: "University", description: "List of compatible universities", default: [] },
   ],
-  students: [{ type: mongoose.Schema.Types.ObjectId, ref: "StudentRole", description: "List of students" }],
-  professors: [{ type: mongoose.Schema.Types.ObjectId, ref: "ProfessorRole", description: "List of professors" }],
-  coordinators: [{ type: mongoose.Schema.Types.ObjectId, ref: "CoordinatorRole", description: "List of coordinators" }],
-  erasmusPrograms: [{ type: mongoose.Schema.Types.ObjectId, ref: "ErasmusProgram", description: "List of Erasmus programs" }],
+  students: [{ type: mongoose.Schema.Types.ObjectId, ref: "StudentRole", description: "List of students", default: [] }],
+  professors: [{ type: mongoose.Schema.Types.ObjectId, ref: "ProfessorRole", description: "List of professors", default: [] }],
+  coordinators: [{ type: mongoose.Schema.Types.ObjectId, ref: "CoordinatorRole", description: "List of coordinators", default: [] }],
+  erasmusPrograms: [{ type: mongoose.Schema.Types.ObjectId, ref: "ErasmusProgram", description: "List of Erasmus programs", default: [] }],
 };
 
 const erasmusProgramSchema = {
@@ -17,9 +17,9 @@ const erasmusProgramSchema = {
   description: { type: String, description: "Description of the Erasmus program" },
   month: { type: Number, min: 1, max: 12, description: "Month of the program" },
   year: { type: Number, min: 2025, max: 2030, default: 2025, description: "Year of the program" },
-  universities: [{ type: mongoose.Schema.Types.ObjectId, ref: "University", description: "List of participating universities" }],
-  evidentions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Evidention", description: "List of evidentions" }],
-  applications: [{ type: mongoose.Schema.Types.ObjectId, ref: "Application", description: "List of applications" }],
+  universities: [{ type: mongoose.Schema.Types.ObjectId, ref: "University", description: "List of participating universities", default: [] }],
+  evidentions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Evidention", description: "List of evidentions", default: [] }],
+  applications: [{ type: mongoose.Schema.Types.ObjectId, ref: "Application", description: "List of applications", default: [] }],
 };
 
 const evidentionSchema = {
