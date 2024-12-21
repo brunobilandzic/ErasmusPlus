@@ -1807,7 +1807,7 @@ const coordinatorsUnfiltered = [
   },
 ];
 
-const getUnique = (arr) => {
+const getUniqueUsers = (arr) => {
   const unique = [];
 
   return arr.filter((p) => {
@@ -1832,9 +1832,9 @@ const admins = [
     role: "admin",
   },
 ];
-const students = getUnique(studentsUnfiltered);
-const professors = getUnique(professorsUnfiltered);
-const coordinators = getUnique(coordinatorsUnfiltered);
+const students = getUniqueUsers(studentsUnfiltered);
+const professors = getUniqueUsers(professorsUnfiltered);
+const coordinators = getUniqueUsers(coordinatorsUnfiltered);
 
 const rolesData = {
   admin: admins,
