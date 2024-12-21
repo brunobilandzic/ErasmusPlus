@@ -27,14 +27,13 @@ const universitySchema = {
       default: [],
     },
   ],
-  coordinators: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "CoordinatorRole",
-      description: "List of coordinators",
-      default: [],
-    },
-  ],
+  coordinator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CoordinatorRole",
+    description: "Erasmus coordinator of the university",
+    default: null,
+  },
+
   erasmusPrograms: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -58,8 +57,8 @@ const erasmusProgramSchema = {
   month: { type: Number, min: 1, max: 12, description: "Month of the program" },
   year: {
     type: Number,
-    min: 2025,
-    max: 2030,
+    min: 2024,
+    max: 2026,
     default: 2025,
     description: "Year of the program",
   },
@@ -100,22 +99,10 @@ const evidentionSchema = {
     description: "ID of the professor",
     default: null,
   },
-  coordinatorId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "CoordinatorRole",
-    description: "ID of the coordinator",
-    default: null,
-  },
   erasmusId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ErasmusProgram",
     description: "ID of the Erasmus program",
-    default: null,
-  },
-  universityId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "University",
-    description: "ID of the university",
     default: null,
   },
   comment: { type: String, description: "Comment on the evidention" },
@@ -146,22 +133,10 @@ const ApplicationSchema = {
     description: "ID of the professor",
     default: null,
   },
-  coordinatorId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "CoordinatorRole",
-    description: "ID of the coordinator",
-    default: null,
-  },
   erasmusId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ErasmusProgram",
     description: "ID of the Erasmus program",
-    default: null,
-  },
-  universityId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "University",
-    description: "ID of the university",
     default: null,
   },
   status: {
@@ -170,7 +145,7 @@ const ApplicationSchema = {
     default: "pending",
     description: "Status of the application",
   },
-  comment: { type: String, description: "Comment on the application" }
+  comment: { type: String, description: "Comment on the application" },
 };
 
 export const University =

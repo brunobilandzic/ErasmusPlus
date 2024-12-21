@@ -1,6 +1,7 @@
 JSON generator placeholder data for entities
 
 ADMIN
+
 [
     '{{repeat(2)}}',
     {
@@ -11,11 +12,11 @@ ADMIN
 ]
 
 STUDENTS
+
 [
-    '{{repeat(250)}}',
+    '{{repeat(1000)}}',
     {
-        username: 'ST{{integer(100,999)}}',
-        location:  '{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}',
+        username: 'University {{lorem(1, "words")}}',
         role: 'student',
         password:'a',
         roleData:
@@ -31,7 +32,6 @@ STUDENTS
     }
 ]
 
-
 COORDINATORS
 
 [
@@ -45,6 +45,7 @@ COORDINATORS
 ]
 
 PROFESSORS
+
 [
     '{{repeat(30)}}',
     {
@@ -54,30 +55,20 @@ PROFESSORS
     }
 ]
 
-
-UNIVERSITIES
-[
-    '{{repeat(10)}}',
-    {
-        name: 'University {{lorem(1, "words")}}',
-        location: '{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}',
-    }
-]
-
-pair by index one to one
-
 ERASMUS_PROGRAMS
+
 [
     '{{repeat(10)}}',
     {
         name: 'Erasmus Program {{lorem(1, "words")}}',
         description: '{{lorem(5, "sentences")}}',
         month: '{{integer(1, 12)}}',
-        year: '{{integer(2025, 2030)}}',
+        year: '{{integer(2024, 2026)}}',
     }
 ]
 
 EVIDENTIONS
+
 [
     '{{repeat(150)}}',
     {
@@ -88,8 +79,9 @@ EVIDENTIONS
 ]
 
 APPLICATIONS
+
 [
-    '{{repeat(30)}}',
+    '{{repeat(300)}}',
     {
         status: '{{random("pending", "accepted", "rejected")}}',
         comment: '{{lorem(1, "sentences")}}'

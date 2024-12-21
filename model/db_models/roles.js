@@ -108,14 +108,12 @@ const coordinatorRoleSchema = new mongoose.Schema({
     description: "ID of the user with coordinator role",
     default: null,
   },
-  university: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "University",
-      description: "List of universities",
-      default: null,
-    },
-  ],
+  university: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "University",
+    description: "List of universities",
+    default: null,
+  },
 });
 
 // Export AdminRole model

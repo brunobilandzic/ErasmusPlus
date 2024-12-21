@@ -1,22 +1,27 @@
 import { User } from "../model/db_models/auth";
 import dbConnect from "../model/mongooseConnect";
-import { roleMap } from "@/constatns";
+import { RoleMap } from "@/constatns";
 import rolesData from "../seed/data/roles";
 
 const seedRoles = async () => {
   await dbConnect();
+  const { deletedCount } = await User.deleteMany({});
+  console.log(`Deleted ${deletedCount} users`);
+
   const seeded = {};
 
   // Initialize seeded object with null values for each role
-  Object.keys(roleMap).forEach(async (role) => {
+  Object.keys(RoleMap).forEach(async (role) => {
     seeded[role] = null;
   });
 
   // Create promises to insert roles
-  const insertRolePromises = Object.entries(roleMap).map(
+  const insertRolePromises = Object.entries(RoleMap).map(
     async ([role, model]) => {
       console.log("Deleting existing records for role:", role);
-      await model.deleteMany({});
+      const { deletedCount } = await model.deleteMany({});
+      console.log(`Deleted ${deletedCount} ${role} roles`);
+
       const data = rolesData[role];
 
       const seededData = await seedRole(role, data);
@@ -42,7 +47,7 @@ const seedRole = async (role, data) => {
   // Create promises to insert users and roles
   const insert = data.map(async (item) => {
     const user = new User(item);
-    const roleModel = new roleMap[role]({ user: user._id });
+    const roleModel = new RoleMap[role]({ user: user._id });
 
     if (role === "student") {
       buildRoleModel(roleModel, item.roleData);

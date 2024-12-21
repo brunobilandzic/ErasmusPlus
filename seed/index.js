@@ -5,5 +5,3 @@ const seed = async () => {
 
   return { seededRoles };
 };
-
-export default { seed, seedRoles };
