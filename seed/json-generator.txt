@@ -12,9 +12,9 @@ ADMIN
 
 STUDENTS
 [
-    '{{repeat(15)}}',
+    '{{repeat(250)}}',
     {
-        name: 'University {{lorem(1, "words")}}',
+        username: 'ST{{integer(100,999)}}',
         location:  '{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}',
         role: 'student'
     }
@@ -40,5 +40,70 @@ PROFESSORS
         username: 'PR{{integer(100,999)}}',
         name: '{{firstName()}} {{surname()}}',
         role: 'professor'
+    }
+]
+
+
+UNIVERSITIES
+[
+    '{{repeat(10)}}',
+    {
+        name: 'University {{lorem(1, "words")}}',
+        location: '{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}',
+        compatibleUniversities: [],
+        students: [],
+        professors: [],
+        coordinators: [],
+        erasmusPrograms: []
+    }
+]
+
+ERASMUS_PROGRAMS
+[
+    '{{repeat(5)}}',
+    {
+        name: 'Erasmus Program {{lorem(1, "words")}}',
+        description: '{{lorem(1, "sentences")}}',
+        month: '{{integer(1, 12)}}',
+        year: '{{integer(2025, 2030)}}',
+        universities: [],
+        evidentions: [],
+        applications: []
+    }
+]
+
+EVIDENTIONS
+[
+    '{{repeat(20)}}',
+    {
+        studentId: '{{objectId()}}',
+        professorId: '{{objectId()}}',
+        coordinatorId: '{{objectId()}}',
+        erasmusId: '{{objectId()}}',
+        universityId: '{{objectId()}}',
+        comment: '{{lorem(1, "sentences")}}',
+        rating: '{{integer(1, 100)}}',
+        status: '{{random("pending", "rated", "in progress")}}'
+    }
+]
+
+APPLICATIONS
+[
+    '{{repeat(30)}}',
+    {
+        studentId: '{{objectId()}}',
+        professorId: '{{objectId()}}',
+        coordinatorId: '{{objectId()}}',
+        erasmusId: '{{objectId()}}',
+        universityId: '{{objectId()}}',
+        status: '{{random("pending", "accepted", "rejected")}}',
+        comment: '{{lorem(1, "sentences")}}',
+        grade_average: '{{floating(3.0, 5.0, 1)}}',
+        first_mobility: '{{bool()}}',
+        motivation_letter_score: '{{floating(1.0, 5.0, 1)}}',
+        english_language_proficiency: '{{floating(2.0, 5.0, 1)}}',
+        host_country_language_proficiency: '{{floating(1.0, 5.0, 1)}}',
+        initiated_llp_agreement: '{{bool()}}',
+        esn_membership: '{{bool()}}'
     }
 ]

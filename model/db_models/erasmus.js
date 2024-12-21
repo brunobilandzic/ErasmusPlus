@@ -127,3 +127,6 @@ export const Evidention =
 export const ErasmusProgram =
   mongoose.models.ErasmusProgram ||
   mongoose.model("ErasmusProgram", new mongoose.Schema(erasmusProgramSchema));
+export const Application =
+  mongoose.models.Application ||
+  mongoose.model("Application", new mongoose.Schema(ApplicationSchema));

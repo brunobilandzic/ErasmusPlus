@@ -23,8 +23,6 @@ const professorRoleSchema = new mongoose.Schema({
 const coordinatorRoleSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User", description: "ID of the user with coordinator role" },
   university: [{ type: mongoose.Schema.Types.ObjectId, ref: "University", description: "List of universities" }],
-  applications: [{ type: mongoose.Schema.Types.ObjectId, ref: "Application", description: "List of applications" }],
-  evidentions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Evidention", description: "List of evidentions" }],
 });
 
 // Export AdminRole model

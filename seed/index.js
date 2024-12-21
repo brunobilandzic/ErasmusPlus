@@ -41,6 +41,10 @@ export const seedRole = async (role, data) => {
     console.log("Seeding user for role:", role, "with data:", item);
     const user = new User(item);
     const roleModel = new roleMap[role]({ user: user._id });
+
+    if(role === "student") {
+      roleModel.grade = item.grade;
+    }
     user.role = role;
     user[role] = roleModel._id;
 
