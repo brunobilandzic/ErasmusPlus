@@ -1,0 +1,44 @@
+JSON generator placeholder data for entities
+
+ADMIN
+[
+    '{{repeat(2)}}',
+    {
+        username: 'ad',
+        password: "a",
+        role: 'admin'
+    }
+]
+
+STUDENTS
+[
+    '{{repeat(15)}}',
+    {
+        name: 'University {{lorem(1, "words")}}',
+        location:  '{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}',
+        role: 'student'
+    }
+]
+
+
+COORDINATORS
+
+[
+    '{{repeat(20)}}',
+    {
+        username: 'CO{{integer(100,999)}}',
+        name: '{{firstName()}} {{surname()}}',
+      password: "a",
+        role: 'collaborator'
+    }
+]
+
+PROFESSORS
+[
+    '{{repeat(30)}}',
+    {
+        username: 'PR{{integer(100,999)}}',
+        name: '{{firstName()}} {{surname()}}',
+        role: 'professor'
+    }
+]

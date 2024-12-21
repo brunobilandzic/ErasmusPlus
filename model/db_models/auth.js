@@ -19,22 +19,22 @@ const userSchema = {
     enum: ["admin", "student", "professor", "coordinator"],
     description: "Role of the user",
   },
-  adminRole: {
+  admin: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "AdminRole",
     description: "Admin role reference",
   },
-  studentRole: {
+  student: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "StudentRole",
     description: "Student role reference",
   },
-  professorRole: {
+  professor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ProfessorRole",
     description: "Professor role reference",
   },
-  coordinatorRole: {
+  coordinator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "CoordinatorRole",
     description: "Coordinator role reference",
