@@ -5,18 +5,24 @@ const seedErasmus = async () => {
   const seeded = {};
   const insertEntitiesPromises = Object.entries(erasmusData).map(
     async ([entity, data]) => {
+      console.log(entity, data.length, ErasmusMap[entity]);
       const model = ErasmusMap[entity];
 
+      console.log("Deleting existing records for entity:", entity);
       const deletedCount = await deleteEntity(model);
       console.log(`Deleted ${deletedCount} ${entity} entities`);
 
       const seededData = await seedEntity(model, data);
       console.log(`Seeded ${seededData.length} ${entity} entities`);
-      seeded[entity] = seededData.length;
+      seeded[entity] = seededData;
     }
   );
 
   await Promise.all(insertEntitiesPromises);
+
+  Object.keys(seeded).forEach((entity) => {
+    seeded[entity] = seeded[entity] ? seeded[entity].length : 0;
+  });
 
   return seeded;
 };

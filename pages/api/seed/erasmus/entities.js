@@ -6,8 +6,9 @@ export default async function handler(req, res) {
   }
 
   const seededErasmus = await seedErasmus();
+  console.log(`Number of seeded Erasmus entries: ${seededErasmus?.length}`);
 
   return res
     .status(201)
-    .json({ message: "Roles seeded successfully", seededErasmus });
+    .json({ message: "Erasmus entities seeded successfully", seededErasmus });
 }

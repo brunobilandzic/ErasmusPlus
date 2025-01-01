@@ -18,6 +18,7 @@ const seedRoles = async () => {
   // Create promises to insert roles
   const insertRolePromises = Object.entries(RoleMap).map(
     async ([role, model]) => {
+      console.log(model);
       console.log("Deleting existing records for role:", role);
       const { deletedCount } = await model.deleteMany({});
       console.log(`Deleted ${deletedCount} ${role} roles`);
