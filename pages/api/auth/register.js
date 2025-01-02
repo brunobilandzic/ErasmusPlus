@@ -1,7 +1,7 @@
 import dbConnect from "../../../model/mongooseConnect";
 import { hash } from "bcryptjs";
 import { User } from "../../../model/db_models/auth";
-import { roleMap, roles } from "@/constatns";
+import { RoleMap, roles } from "@/constatns";
 import { signToken } from "@/controller/auth";
 
 // we use jose for tokens because it can be on edge for middleware can use it
@@ -63,7 +63,7 @@ export default async function handler(req, res) {
 
     // Create a new role instance with userId as the user's id
     // map the role to the role class in rolemap
-    const newRole = new roleMap[role]({ userId: newUser._id });
+    const newRole = new RoleMap[role]({ userId: newUser._id });
 
     // Generate a JWT token for the new user
     const token = await signToken(newUser);
