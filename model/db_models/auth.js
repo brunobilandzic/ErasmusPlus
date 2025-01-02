@@ -9,6 +9,11 @@ const userSchema = {
     required: true,
     description: "Username of the user",
   },
+  name: {
+    type: String,
+    required: true,
+    description: "Name of the user",
+  },
   password: {
     type: String,
     required: true,
