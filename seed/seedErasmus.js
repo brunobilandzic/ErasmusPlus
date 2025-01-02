@@ -1,8 +1,12 @@
 import { ErasmusMap } from "@/constatns";
 import erasmusData from "./data/erasmus";
 import dbConnect from "@/model/mongooseConnect";
-import { getRandomNumberInRange } from "@/utils";
-import { University } from "@/model/db_models/erasmus";
+import { ErasmusProgram, University } from "@/model/db_models/erasmus";
+import {
+  CoordinatorRole,
+  ProfessorRole,
+  StudentRole,
+} from "@/model/db_models/roles";
 
 const seedErasmus = async () => {
   const seeded = {};
@@ -31,7 +35,9 @@ const seedErasmus = async () => {
   );
 
   await Promise.all(insertEntitiesPromises);
-
+  await addErasmusProgramToUni();
+  await addStudentsAndProfessorsToUni();
+  await addCoordinatorsToUni();
   Object.keys(seeded).forEach((entity) => {
     seeded[entity] = seeded[entity] ? seeded[entity].length : 0;
   });
@@ -115,6 +121,115 @@ const seedUniversities = async () => {
   );
 
   return seeded;
+};
+
+const addErasmusProgramToUni = async () => {
+  await dbConnect();
+  const universities = await University.find();
+  const erasmusPrograms = await ErasmusProgram.find();
+
+  await Promise.all(
+    universities.map(async (uni) => {
+      const randomIndex = Math.floor(Math.random() * erasmusPrograms.length);
+      const erasmusProgram = erasmusPrograms[randomIndex];
+      if (erasmusProgram.university) {
+        return;
+      }
+      uni.erasmusPrograms.push(erasmusProgram._id);
+      erasmusProgram.university = uni._id;
+    })
+  );
+
+  await Promise.all(
+    universities.map(async (uni) => {
+      await uni.save();
+    })
+  );
+
+  await Promise.all(
+    erasmusPrograms.map(async (erasmusProgram) => {
+      await erasmusProgram.save();
+    })
+  );
+};
+
+const addStudentsAndProfessorsToUni = async () => {
+  await dbConnect();
+  const universities = await University.find();
+  const students = await StudentRole.find();
+  const professors = await ProfessorRole.find();
+
+  await Promise.all(
+    students.map(async (student) => {
+      let randomIndex = Math.floor(Math.random() * universities.length);
+      const uni = universities[randomIndex];
+      while (uni.students.includes(student._id)) {
+        randomIndex = Math.floor(Math.random() * universities.length);
+      }
+      uni.students.push(student._id);
+      student.university = uni._id;
+    })
+  );
+
+  await Promise.all(
+    professors.map(async (professor) => {
+      let randomIndex = Math.floor(Math.random() * universities.length);
+      const uni = universities[randomIndex];
+      while (uni.professors.includes(professor._id)) {
+        randomIndex = Math.floor(Math.random() * universities.length);
+      }
+      uni.professors.push(professor._id);
+      professor.university = uni._id;
+    })
+  );
+
+  await Promise.all(
+    universities.map(async (uni) => {
+      await uni.save();
+    })
+  );
+
+  await Promise.all(
+    students.map(async (student) => {
+      await student.save();
+    })
+  );
+
+  await Promise.all(
+    professors.map(async (professor) => {
+      await professor.save();
+    })
+  );
+};
+
+const addCoordinatorsToUni = async () => {
+  await dbConnect();
+  const universities = await University.find();
+  const coordinators = await CoordinatorRole.find();
+
+  await Promise.all(
+    coordinators.map(async (coordinator) => {
+      let randomIndex = Math.floor(Math.random() * universities.length);
+      const uni = universities[randomIndex];
+      while (uni.coordinator == coordinator._id) {
+        randomIndex = Math.floor(Math.random() * universities.length);
+      }
+      uni.coordinator = coordinator._id;
+      coordinator.university = uni._id;
+    })
+  );
+
+  await Promise.all(
+    universities.map(async (uni) => {
+      await uni.save();
+    })
+  );
+
+  await Promise.all(
+    coordinators.map(async (coordinator) => {
+      await coordinator.save();
+    })
+  );
 };
 
 export default seedErasmus;
