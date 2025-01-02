@@ -7,10 +7,6 @@ export default async function handler(req, res) {
 
   try {
     const seeded = await seed();
-    console.log({
-      erasmus: seeded?.erasmus.length,
-      roles: seeded?.roles.length,
-    });
     return res.status(200).json(seeded);
   } catch (error) {
     console.error(error);

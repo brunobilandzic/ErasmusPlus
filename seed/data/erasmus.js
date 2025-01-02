@@ -1,43 +1,84 @@
 export const universities = [
   {
-    name: "University labore nulla cillum irure",
-    location: "314 Anchorage Place, Gasquet, Nevada, 8342",
+    location: "132 Cove Lane, Lafferty, Palau, 7429",
+    name: "University ea commodo velit ea",
   },
   {
-    name: "University labore nulla reprehenderit deserunt",
-    location: "276 Wyckoff Avenue, National, North Carolina, 7413",
+    location: "702 Gelston Avenue, Edgar, New Hampshire, 1427",
+    name: "University nulla est do laboris",
   },
   {
-    name: "University incididunt deserunt consectetur dolore",
-    location: "858 Milford Street, Duryea, Wyoming, 2006",
+    location: "766 Emerson Place, Jamestown, Vermont, 7947",
+    name: "University incididunt consequat cupidatat id",
   },
   {
-    name: "University irure velit consectetur dolor",
-    location: "295 Preston Court, Clayville, Massachusetts, 3753",
+    location: "224 Catherine Street, Lithium, Arkansas, 7815",
+    name: "University ex ea aliqua est",
   },
   {
-    name: "University officia officia sunt dolor",
-    location: "651 Irving Place, Itmann, Oregon, 1691",
+    location: "613 Roosevelt Court, Hayden, Minnesota, 3619",
+    name: "University sunt consectetur excepteur deserunt",
   },
   {
-    name: "University laborum dolore aliqua cupidatat",
-    location: "427 Ridgewood Avenue, Derwood, Iowa, 8375",
+    location: "511 Fayette Street, Eureka, Kansas, 4769",
+    name: "University aliqua dolore cillum do",
   },
   {
-    name: "University cupidatat eu laborum est",
-    location: "422 Jefferson Street, Why, West Virginia, 4738",
+    location: "560 Seaview Court, Navarre, Wisconsin, 2772",
+    name: "University incididunt adipisicing exercitation sint",
   },
   {
-    name: "University aute consequat qui ad",
-    location: "268 Granite Street, Caroline, Texas, 8587",
+    location: "612 Quentin Road, Odessa, South Carolina, 365",
+    name: "University sunt pariatur culpa commodo",
   },
   {
-    name: "University minim minim est deserunt",
-    location: "412 Roosevelt Place, Norwood, Northern Mariana Islands, 1784",
+    location: "187 Sackman Street, Maury, Hawaii, 7025",
+    name: "University consectetur ad aute aute",
   },
   {
-    name: "University ipsum do ea officia",
-    location: "700 Calyer Street, Hannasville, Oklahoma, 4272",
+    location: "302 Harkness Avenue, Waterloo, Nebraska, 6552",
+    name: "University eu id quis consectetur",
+  },
+  {
+    location: "636 Irving Place, Oasis, North Carolina, 5744",
+    name: "University culpa voluptate quis proident",
+  },
+  {
+    location: "743 Aster Court, Rivera, Michigan, 3123",
+    name: "University adipisicing eiusmod laborum consectetur",
+  },
+  {
+    location: "534 Cheever Place, Kenmar, New Jersey, 5389",
+    name: "University sit sunt adipisicing irure",
+  },
+  {
+    location: "844 Bevy Court, Dunlo, North Dakota, 9850",
+    name: "University et eiusmod irure veniam",
+  },
+  {
+    location: "768 Havens Place, Blue, Ohio, 8203",
+    name: "University magna consectetur deserunt deserunt",
+  },
+  {
+    location: "961 Bleecker Street, Fairacres, California, 5450",
+    name: "University tempor minim excepteur cupidatat",
+  },
+  {
+    location: "217 Montgomery Place, Germanton, American Samoa, 587",
+    name: "University sunt nisi cupidatat qui",
+  },
+  {
+    location: "322 Story Street, Coldiron, Illinois, 8696",
+    name: "University minim ea ex adipisicing",
+  },
+  {
+    location:
+      "303 Herkimer Court, Knowlton, Federated States Of Micronesia, 3296",
+    name: "University pariatur incididunt qui reprehenderit",
+  },
+  {
+    location: "128 Miller Avenue, Henrietta, Louisiana, 4455",
+    name: "University excepteur tempor et aliqua",
   },
 ];
 

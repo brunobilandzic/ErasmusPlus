@@ -81,14 +81,12 @@ const professorRoleSchema = new mongoose.Schema({
     description: "ID of the user with professor role",
     default: null,
   },
-  university: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "University",
-      description: "List of universities",
-      default: null,
-    },
-  ],
+  university: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "University",
+    description: "Professor university",
+    default: null,
+  },
   applications: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -111,7 +109,7 @@ const coordinatorRoleSchema = new mongoose.Schema({
   university: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "University",
-    description: "List of universities",
+    description: "University of coordinator",
     default: null,
   },
 });

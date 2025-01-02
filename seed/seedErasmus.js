@@ -1,11 +1,12 @@
 import { ErasmusMap } from "@/constatns";
 import erasmusData from "./data/erasmus";
+import dbConnect from "@/model/mongooseConnect";
 
 const seedErasmus = async () => {
   const seeded = {};
+  await dbConnect();
   const insertEntitiesPromises = Object.entries(erasmusData).map(
     async ([entity, data]) => {
-      console.log(entity, data.length, ErasmusMap[entity]);
       const model = ErasmusMap[entity];
 
       console.log("Deleting existing records for entity:", entity);
@@ -28,6 +29,7 @@ const seedErasmus = async () => {
 };
 
 const deleteEntity = async (model) => {
+  console.log("deleting model:", model);
   const { deletedCount } = await model.deleteMany();
 
   return deletedCount;

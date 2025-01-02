@@ -6,6 +6,7 @@ ADMIN
     '{{repeat(2)}}',
     {
         username: 'ad',
+         name: '{{firstName()}} {{surname()}}',
         password: "a",
         role: 'admin'
     }
@@ -16,7 +17,8 @@ STUDENTS
 [
     '{{repeat(1000)}}',
     {
-        username: 'University {{lorem(1, "words")}}',
+        username: 'ST{{integer(100,999)}}',
+         name: '{{firstName()}} {{surname()}}',
         role: 'student',
         password:'a',
         roleData:
@@ -27,7 +29,8 @@ STUDENTS
             english_language_proficiency: '{{floating(2.0, 5.0, 1)}}',
             host_country_language_proficiency: '{{floating(1.0, 5.0, 1)}}',
             initiated_llp_agreement: '{{bool()}}',
-            esn_membership: '{{bool()}}'
+            esn_membership: '{{bool()}}',
+            universityIndex: '{{integer(0, 19)}}'
         }
     }
 ]
@@ -39,21 +42,42 @@ COORDINATORS
     {
         username: 'CO{{integer(100,999)}}',
         name: '{{firstName()}} {{surname()}}',
-      password: "a",
-        role: 'collaborator'
+        password: "a",
+        role: 'coordinator',
+        roleData:
+        {
+            universityIndex: '{{index()}}',
+
+        }
     }
 ]
 
 PROFESSORS
 
 [
-    '{{repeat(30)}}',
+    '{{repeat(40)}}',
     {
         username: 'PR{{integer(100,999)}}',
         name: '{{firstName()}} {{surname()}}',
-        role: 'professor'
+        password: "a",
+        role: 'professor',
+        roleData:
+        {
+            universityIndex: '{{integer(0,20)}}',
+            
+        }
     }
 ]
+
+UNIVERSITIES
+[
+    '{{repeat(20)}}',
+    {
+        location: '{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}',
+    }
+    
+]
+
 
 ERASMUS_PROGRAMS
 
@@ -86,4 +110,10 @@ APPLICATIONS
         status: '{{random("pending", "accepted", "rejected")}}',
         comment: '{{lorem(1, "sentences")}}'
     }
+]
+
+UNIVERSITIES
+
+[
+
 ]
