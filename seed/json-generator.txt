@@ -85,7 +85,7 @@ UNIVERSITIES
 ERASMUS_PROGRAMS
 
 [
-    '{{repeat(10)}}',
+    '{{repeat(100)}}',
     {
         name: 'Erasmus Program {{lorem(1, "words")}}',
         description: '{{lorem(5, "sentences")}}',

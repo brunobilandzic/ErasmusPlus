@@ -129,14 +129,16 @@ const addErasmusProgramToUni = async () => {
   const erasmusPrograms = await ErasmusProgram.find();
 
   await Promise.all(
-    universities.map(async (uni) => {
-      const randomIndex = Math.floor(Math.random() * erasmusPrograms.length);
-      const erasmusProgram = erasmusPrograms[randomIndex];
-      if (erasmusProgram.university) {
+    erasmusPrograms.map(async (eprogram) => {
+      const university =
+        universities[Math.floor(Math.random() * universities.length)];
+
+      if (university.erasmusPrograms.includes(eprogram._id)) {
         return;
       }
-      uni.erasmusPrograms.push(erasmusProgram._id);
-      erasmusProgram.university = uni._id;
+
+      university.erasmusPrograms.push(eprogram._id);
+      eprogram.university = university._id;
     })
   );
 

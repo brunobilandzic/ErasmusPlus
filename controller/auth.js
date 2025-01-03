@@ -1,6 +1,7 @@
 import { User } from "@/model/db_models/auth";
 import dbConnect from "@/model/mongooseConnect";
 import { SignJWT, jwtVerify } from "jose";
+import mongoose from "mongoose";
 
 // Function to sign a JWT token for a user
 export const signToken = async (user) => {
@@ -13,7 +14,7 @@ export const signToken = async (user) => {
     .setIssuedAt() // Set the issued at time
     .setExpirationTime("2h") // Set the expiration time to 2 hours
     .sign(key); // Sign the token with the key
-  console.log("Token signed: ", token); // Log the signed token
+
   return token; // Return the signed token
 };
 
@@ -22,26 +23,13 @@ export const createKey = async () => {
   return new TextEncoder().encode(process.env.JWT_SECRET); // Encode the JWT secret
 };
 
-// Function to verify a JWT token
-export const verifyToken = async (token) => {
-  if (!token) {
-    return false; // Return false if no token is provided
-  }
-  const key = await createKey(); // Create the key for verification
-  const decoded = await jwtVerify(token, key); // Verify the token with the key
-
-  if (!decoded) {
-    return false; // Return false if the token is not decoded
-  } // Log the decoded payload
-  return decoded; // Return the decoded payload
-};
-
 export const getUser = async (id) => {
   // Connect to the database
   await dbConnect();
-  console.log(id);
   // Find the user by ID
   const user = await User.findById(id).select("-password");
+
+  await mongoose.models.User.populate(user, user.role);
 
   // Check if user exists
   if (!user) {
@@ -52,8 +40,28 @@ export const getUser = async (id) => {
   return user;
 };
 
+
+// Function to verify a JWT token
+export const verifyToken = async (token) => {
+  if (
+    !token ||
+    token == "" ||
+    typeof token === "undefined" ||
+    token === "null"
+  ) {
+    return false; // Return false if no token is provided
+  }
+  const key = await createKey(); // Create the key for verification
+  const decoded = await jwtVerify(token, key); // Verify the token with the key
+  if (!decoded) {
+    return false; // Return false if the token is not decoded
+  } // Log the decoded payload
+  return decoded; // Return the decoded payload
+};
+
+
 export const getUserFromToken = async (authorization) => {
-  const token = authorization.split(" ")[1]; // Get the token from the authorization header
+  const token = authorization?.split(" ")[1]; // Get the token from the authorization header
   // Verify the token
   const decoded = await verifyToken(token);
 
@@ -63,12 +71,21 @@ export const getUserFromToken = async (authorization) => {
     return null;
   }
 
-  // Get the user ID from the token
-  const id = decoded.payload.id;
-
   // Get the user from the ID
-  const user = await getUser(id);
+  const user = await getUser(decoded.payload.id);
 
   // Return the user
   return user;
+};
+
+export const checkRole = async (token, role) => {
+  // Get the user from the token
+  const user = await getUserFromToken(token);
+
+  // Check if the user has the role
+  if (user.role !== role) {
+    return false;
+  }
+
+  return true;
 };

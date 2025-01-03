@@ -46,10 +46,8 @@ const AuthWrap = ({ children }) => {
         }
       }
     };
-    if (!authState.loggedIn) {
-      console.log("fetching user data, no user logged in");
-      fetchUserData();
-    }
+
+    fetchUserData();
   }, [dispatch]);
 
   return (
@@ -57,7 +55,7 @@ const AuthWrap = ({ children }) => {
       <div className="relative h-screen">
         <Navbar authState={authState} />
         <div className="flex flex-col  items-center p-4">{children}</div>
-        <footer className="text-gray-600 py-5 w-full text-center absolute bottom-0">
+        <footer className="text-slate-200 bg-gray-800  py-5 w-full text-center ">
           {" "}
           <p className="text-sm">
             &copy; 2024 ErasmusPlus. All rights reserved.
@@ -84,16 +82,13 @@ const Navbar = ({ authState }) => {
           className={`flex flex-col md:flex-row md:space-x-4 ${
             !isOpen && "hidden md:flex"
           }`}>
-          <li key={"csacasca"} className="mb-2 md:mb-0">
+          <li key={"home"} className="mb-2 md:mb-0">
             <Link href="/">Home</Link>
           </li>
-          {["About", "Contact"].map((item) => (
-            <li key={item} className="mb-2 md:mb-0">
-              <Link href={`/${item.toLowerCase()}`}>
-                <div className="text-white hover:text-gray-400">{item}</div>
-              </Link>
-            </li>
-          ))}
+          <li key={"erasmusprogramslink"} className="mb-2 md:mb-0">
+            <Link href="/erasmusprograms">Erasmus Programs</Link>
+          </li>
+
           {authState.loggedIn && authState.user.role === "student" && (
             <StudentNavbar />
           )}
@@ -130,9 +125,7 @@ const Navbar = ({ authState }) => {
 const StudentNavbar = () => {
   return (
     <>
-      <li key={"erasmusprogramslink"} className="mb-2 md:mb-0">
-        <Link href="/erasmusprograms">Erasmus Programs</Link>
-      </li>
+
       <li key={"applicationslink"} className="mb-2 md:mb-0">
         <Link href="/applications">Applications</Link>
       </li>

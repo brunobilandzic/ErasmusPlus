@@ -22,8 +22,6 @@ export default async function handler(req, res) {
 
   // Connect to the database
   await dbConnect();
-  console.log("Database connected");
-
   // Find the user by username
   const user = await User.findOne({ username });
 
@@ -45,7 +43,7 @@ export default async function handler(req, res) {
   // Generate a JWT token
   const token = await signToken(user);
 
-  console.log("Authentication successful");
+  console.log("API login successful");
   // Respond with the token and user details
   res.status(200).json({
     token,
