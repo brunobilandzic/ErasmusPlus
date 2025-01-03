@@ -4,6 +4,7 @@ import { RoleMap } from "@/constatns";
 import rolesData from "../seed/data/roles";
 import { capitalize, getModelFromIndex } from "@/utils";
 import mongoose from "mongoose";
+import { hash } from "bcryptjs";
 
 const seedRoles = async () => {
   await dbConnect();
@@ -43,6 +44,7 @@ const seedRole = async (role, data) => {
   // Create promises to insert users and roles
   const insert = data.map(async (item) => {
     const user = new User(item);
+    user.password = await hash(user.password, 10);
     const roleModel = new RoleMap[role]({ user: user._id });
 
     item.roleData && buildRoleModel(roleModel, item.roleData, role);

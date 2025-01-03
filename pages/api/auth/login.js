@@ -25,7 +25,7 @@ export default async function handler(req, res) {
   console.log("Database connected");
 
   // Find the user by username
-  const user = await User.findOne({ username }).populate("roleRequest");
+  const user = await User.findOne({ username });
 
   // Check if user exists
   if (!user) {
@@ -49,6 +49,6 @@ export default async function handler(req, res) {
   // Respond with the token and user details
   res.status(200).json({
     token,
-    user: { username: user.username, id: user._id },
+    user: { username: user.username, id: user._id, role: user.role },
   });
 }

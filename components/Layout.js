@@ -46,7 +46,10 @@ const AuthWrap = ({ children }) => {
         }
       }
     };
-    fetchUserData();
+    if (!authState.loggedIn) {
+      console.log("fetching user data, no user logged in");
+      fetchUserData();
+    }
   }, [dispatch]);
 
   return (
@@ -70,7 +73,7 @@ const Navbar = ({ authState }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="bg-gray-800 p-4 flex justify-between text-slate-200 items-center">
+    <div className="bg-gray-800 p-4 flex justify-between text-slate-200 items-start">
       <nav>
         <div
           className="md:hidden text-xl cursor-pointer"
@@ -91,6 +94,9 @@ const Navbar = ({ authState }) => {
               </Link>
             </li>
           ))}
+          {authState.loggedIn && authState.user.role === "student" && (
+            <StudentNavbar />
+          )}
         </ul>
       </nav>
       <div className="flex items-center gap-2">
@@ -118,6 +124,22 @@ const Navbar = ({ authState }) => {
         </div>
       </div>
     </div>
+  );
+};
+
+const StudentNavbar = () => {
+  return (
+    <>
+      <li key={"erasmusprogramslink"} className="mb-2 md:mb-0">
+        <Link href="/erasmusprograms">Erasmus Programs</Link>
+      </li>
+      <li key={"applicationslink"} className="mb-2 md:mb-0">
+        <Link href="/applications">Applications</Link>
+      </li>
+      <li key={"universitieslink"} className="mb-2 md:mb-0">
+        <Link href="/universities">Universities</Link>
+      </li>
+    </>
   );
 };
 
