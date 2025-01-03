@@ -70,10 +70,13 @@ PROFESSORS
 ]
 
 UNIVERSITIES
+
 [
     '{{repeat(20)}}',
     {
+        name: 'University {{lorem(3, "words")}}
         location: '{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}',
+        compunisCount: '{{integer(1,5)}}
     }
     
 ]
@@ -82,7 +85,7 @@ UNIVERSITIES
 ERASMUS_PROGRAMS
 
 [
-    '{{repeat(10)}}',
+    '{{repeat(100)}}',
     {
         name: 'Erasmus Program {{lorem(1, "words")}}',
         description: '{{lorem(5, "sentences")}}',

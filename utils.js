@@ -13,3 +13,18 @@ export const getModelFromIndex = (indexString) => {
   const modelName = indexString.split("Index")[0];
   return modelName;
 };
+
+export const getRandomNumberInRange = (range) => {
+  const drafted = new Set();
+  console.log("range", range);
+  return function* () {
+    while (drafted.size < range) {
+      const random = Math.floor(Math.random() * range);
+      if (!drafted.has(random)) {
+        console.log(drafted, range, random);
+        drafted.add(random);
+        yield random;
+      }
+    }
+  };
+};

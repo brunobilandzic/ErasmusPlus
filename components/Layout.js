@@ -46,6 +46,7 @@ const AuthWrap = ({ children }) => {
         }
       }
     };
+
     fetchUserData();
   }, [dispatch]);
 
@@ -54,7 +55,7 @@ const AuthWrap = ({ children }) => {
       <div className="relative h-screen">
         <Navbar authState={authState} />
         <div className="flex flex-col  items-center p-4">{children}</div>
-        <footer className="text-gray-600 py-5 w-full text-center absolute bottom-0">
+        <footer className="text-slate-200 bg-gray-800  py-5 w-full text-center ">
           {" "}
           <p className="text-sm">
             &copy; 2024 ErasmusPlus. All rights reserved.
@@ -70,7 +71,7 @@ const Navbar = ({ authState }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="bg-gray-800 p-4 flex justify-between text-slate-200 items-center">
+    <div className="bg-gray-800 p-4 flex justify-between text-slate-200 items-start">
       <nav>
         <div
           className="md:hidden text-xl cursor-pointer"
@@ -81,16 +82,16 @@ const Navbar = ({ authState }) => {
           className={`flex flex-col md:flex-row md:space-x-4 ${
             !isOpen && "hidden md:flex"
           }`}>
-          <li key={"csacasca"} className="mb-2 md:mb-0">
+          <li key={"home"} className="mb-2 md:mb-0">
             <Link href="/">Home</Link>
           </li>
-          {["About", "Contact"].map((item) => (
-            <li key={item} className="mb-2 md:mb-0">
-              <Link href={`/${item.toLowerCase()}`}>
-                <div className="text-white hover:text-gray-400">{item}</div>
-              </Link>
-            </li>
-          ))}
+          <li key={"erasmusprogramslink"} className="mb-2 md:mb-0">
+            <Link href="/erasmusprograms">Erasmus Programs</Link>
+          </li>
+
+          {authState.loggedIn && authState.user.role === "student" && (
+            <StudentNavbar />
+          )}
         </ul>
       </nav>
       <div className="flex items-center gap-2">
@@ -118,6 +119,20 @@ const Navbar = ({ authState }) => {
         </div>
       </div>
     </div>
+  );
+};
+
+const StudentNavbar = () => {
+  return (
+    <>
+
+      <li key={"applicationslink"} className="mb-2 md:mb-0">
+        <Link href="/applications">Applications</Link>
+      </li>
+      <li key={"universitieslink"} className="mb-2 md:mb-0">
+        <Link href="/universities">Universities</Link>
+      </li>
+    </>
   );
 };
 

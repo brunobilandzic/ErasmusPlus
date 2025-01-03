@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 // Get the MongoDB URI from environment variables
 const MONGODB_URI = process.env.MONGODB_URI;
-console.log(`\n\nMONGODB_URI: ${MONGODB_URI}\n\n`);
 
 // Throw an error if the MongoDB URI is not defined
 if (!MONGODB_URI) {
