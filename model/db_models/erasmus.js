@@ -87,19 +87,19 @@ const erasmusProgramSchema = {
 };
 
 const evidentionSchema = {
-  studentId: {
+  student: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "StudentRole",
     description: "ID of the student",
     default: null,
   },
-  professorId: {
+  professor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ProfessorRole",
     description: "ID of the professor",
     default: null,
   },
-  erasmusId: {
+  erasmus: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ErasmusProgram",
     description: "ID of the Erasmus program",
@@ -121,19 +121,19 @@ const evidentionSchema = {
 };
 
 const ApplicationSchema = {
-  studentId: {
+  student: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "StudentRole",
     description: "ID of the student",
     default: null,
   },
-  professorId: {
+  professor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ProfessorRole",
     description: "ID of the professor",
     default: null,
   },
-  erasmusId: {
+  erasmus: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ErasmusProgram",
     description: "ID of the Erasmus program",

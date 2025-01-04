@@ -114,9 +114,3 @@ APPLICATIONS
         comment: '{{lorem(1, "sentences")}}'
     }
 ]
-
-UNIVERSITIES
-
-[
-
-]

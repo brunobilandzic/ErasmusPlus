@@ -19,8 +19,8 @@ const seedRoles = async () => {
   });
 
   // Create promises to insert roles
-  const insertRolePromises = Object.entries(RoleMap).map(
-    async ([role, model]) => {
+  await Promise.all(
+    Object.entries(RoleMap).map(async ([role, model]) => {
       const { deletedCount } = await model.deleteMany({});
       console.log(`Deleted ${deletedCount} ${role} roles`);
 
@@ -29,37 +29,36 @@ const seedRoles = async () => {
       const seededData = await seedRole(role, data);
       console.log(`Seeded ${seededData.length} ${role} roles`);
       seeded[role] = seededData?.length || 0;
-    }
+    })
   );
-
-  // Wait for all promises to complete
-  await Promise.all(insertRolePromises);
 
   return seeded;
 };
 
 const seedRole = async (role, data) => {
   const seeded = [];
+  await dbConnect();
+
+  console.log(`Seeding ${data.length} ${role} roles`);
 
   // Create promises to insert users and roles
-  const insert = data.map(async (item) => {
-    const user = new User(item);
-    user.password = await hash(user.password, 10);
-    const roleModel = new RoleMap[role]({ user: user._id });
+  await Promise.all(
+    data.map(async (item) => {
+      const user = new User(item);
+      user.password = await hash(user.password, 10);
+      const roleModel = new RoleMap[role]({ user: user._id });
 
-    item.roleData && buildRoleModel(roleModel, item.roleData, role);
+      item.roleData && (await buildRoleModel(roleModel, item.roleData, role));
 
-    !item.roleData && (await roleModel.save());
+      !item.roleData && (await roleModel.save());
 
-    user.role = role;
-    user[role] = roleModel._id;
+      user.role = role;
+      user[role] = roleModel._id;
 
-    await user.save();
-    seeded.push(user);
-  });
-
-  // Wait for all promises to complete
-  await Promise.all(insert);
+      await user.save();
+      seeded.push(user);
+    })
+  );
 
   return seeded;
 };
@@ -70,7 +69,6 @@ const buildRoleModel = async (roleModel, roleData, roleName) => {
       const modelName = getModelFromIndex(key);
       if (modelName) {
         //its probably university
-        // const model = mongoClient.db.collection(modelName);
         const erasmusModel = mongoose.model(capitalize(modelName));
         const records = await erasmusModel.find();
 
