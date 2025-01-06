@@ -57,9 +57,35 @@ export const getErasmusProgram = async (id) => {
   return erasmusProgram;
 };
 
+export const erasmusResults = async () => {};
+
 export const createErasmusProgram = async (erasmusProgram) => {
   await dbConnect();
   const newErasmusProgram = await ErasmusProgram.create(erasmusProgram);
 
   return newErasmusProgram;
+};
+
+export const programsValidity = async () => {
+  await dbConnect();
+  const erasmusPrograms = await ErasmusProgram.find().populate("applications");
+  const invalidPrograms = [];
+  let valid = true;
+
+  erasmusPrograms.forEach((program) => {
+    if (program.isFinished) {
+      valid = program.applications.every(
+        (app) => app.status === "accepted" || app.status === "rejected"
+      );
+      valid == false && invalidPrograms.push(program._id);
+    } else {
+      valid = program.applications.every((app) => app.status === "pending");
+      valid == false && invalidPrograms.push(program._id);
+    }
+  });
+
+  return {
+    valid,
+    invalidPrograms,
+  };
 };

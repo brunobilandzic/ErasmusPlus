@@ -88,6 +88,9 @@ const Navbar = ({ authState }) => {
           <li key={"erasmusprogramslink"} className="mb-2 md:mb-0">
             <Link href="/erasmusprograms">Erasmus Programs</Link>
           </li>
+          <li key={"applicationslink"} className="mb-2 md:mb-0">
+            <Link href="/applications">Applications</Link>
+          </li>
 
           {authState.loggedIn && authState.user.role === "student" && (
             <StudentNavbar />
@@ -125,10 +128,6 @@ const Navbar = ({ authState }) => {
 const StudentNavbar = () => {
   return (
     <>
-
-      <li key={"applicationslink"} className="mb-2 md:mb-0">
-        <Link href="/applications">Applications</Link>
-      </li>
       <li key={"universitieslink"} className="mb-2 md:mb-0">
         <Link href="/universities">Universities</Link>
       </li>

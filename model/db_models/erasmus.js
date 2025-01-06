@@ -57,9 +57,7 @@ const erasmusProgramSchema = {
   month: { type: Number, min: 1, max: 12, description: "Month of the program" },
   year: {
     type: Number,
-    min: 2024,
-    max: 2026,
-    default: 2025,
+    default: 2026,
     description: "Year of the program",
   },
   university: {
@@ -84,22 +82,25 @@ const erasmusProgramSchema = {
       default: [],
     },
   ],
+  isFinished: {
+    type: Boolean,
+  },
 };
 
 const evidentionSchema = {
-  studentId: {
+  student: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "StudentRole",
     description: "ID of the student",
     default: null,
   },
-  professorId: {
+  professor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ProfessorRole",
     description: "ID of the professor",
     default: null,
   },
-  erasmusId: {
+  erasmus: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ErasmusProgram",
     description: "ID of the Erasmus program",
@@ -121,19 +122,19 @@ const evidentionSchema = {
 };
 
 const ApplicationSchema = {
-  studentId: {
+  student: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "StudentRole",
     description: "ID of the student",
     default: null,
   },
-  professorId: {
+  professor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ProfessorRole",
     description: "ID of the professor",
     default: null,
   },
-  erasmusId: {
+  erasmus: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ErasmusProgram",
     description: "ID of the Erasmus program",

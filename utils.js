@@ -28,3 +28,7 @@ export const getRandomNumberInRange = (range) => {
     }
   };
 };
+
+export const randomTruth = (probability = 0.5) => {
+  return Math.random() < probability;
+};
