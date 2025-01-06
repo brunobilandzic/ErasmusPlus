@@ -57,9 +57,7 @@ const erasmusProgramSchema = {
   month: { type: Number, min: 1, max: 12, description: "Month of the program" },
   year: {
     type: Number,
-    min: 2024,
-    max: 2026,
-    default: 2025,
+    default: 2026,
     description: "Year of the program",
   },
   university: {

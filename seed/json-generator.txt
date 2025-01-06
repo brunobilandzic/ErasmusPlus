@@ -90,7 +90,7 @@ ERASMUS_PROGRAMS
         name: 'Erasmus Program {{lorem(1, "words")}}',
         description: '{{lorem(5, "sentences")}}',
         month: '{{integer(1, 12)}}',
-        year: '{{integer(2024, 2026)}}',
+        year: '{{integer(2024, 2028)}}',
     }
 ]
 

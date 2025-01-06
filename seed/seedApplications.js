@@ -1,4 +1,4 @@
-import { Application } from "@/model/db_models/erasmus";
+import { Application, ErasmusProgram } from "@/model/db_models/erasmus";
 import { StudentRole, ProfessorRole } from "@/model/db_models/roles";
 import { universityCompatiblePrograms } from "@/controller/erasmus/programs";
 import dbConnect from "@/model/mongooseConnect";
@@ -8,6 +8,7 @@ export const applicationConnections = async () => {
   const students = await StudentRole.find();
   const professors = await ProfessorRole.find();
   const dbApplications = await Application.find();
+  const erasmusPrograms = await ErasmusProgram.find();
 
   await Promise.all(
     dbApplications.map(async (application) => {
@@ -31,8 +32,15 @@ export const applicationConnections = async () => {
     })
   );
 
+  await Promise.all(
+    erasmusPrograms.map(async (program) => {
+      program.applications = [];
+      await program.save();
+    })
+  );
+
   console.log(
-    `Removing existing connections for ${dbApplications.length} applications`
+    `Removed existing connections for ${dbApplications.length} applications`
   );
 
   const applications = [...dbApplications];
@@ -55,9 +63,18 @@ export const applicationConnections = async () => {
 
   await Promise.all(
     students.map(async (student) => {
-      const compatible = await universityCompatiblePrograms(student.university);
+      let compatible = await universityCompatiblePrograms(student.university);
+
       let randomIndex = Math.floor(Math.random() * compatible.length);
+
+      if (!compatible || compatible.length == 0) return;
+
+      compatible = compatible.filter((comp) =>
+        comp.programs?.every((ep) => new Date(ep.year, ep.month) > new Date())
+      );
+
       const programs = compatible[randomIndex]?.programs;
+
       if (!programs) return;
 
       randomIndex = Math.floor(Math.random() * programs.length);
@@ -79,6 +96,10 @@ export const applicationConnections = async () => {
 
       connectedStudentAppliceations.push(application._id);
     })
+  );
+
+  console.log(
+    `Created ${connectedStudentAppliceations.length} student connections`
   );
 
   await Promise.all(
@@ -109,6 +130,10 @@ export const applicationConnections = async () => {
 
       connectedProfessorApplications.push(application._id);
     })
+  );
+
+  console.log(
+    `Created ${connectedProfessorApplications.length} professor connections`
   );
 
   return {
