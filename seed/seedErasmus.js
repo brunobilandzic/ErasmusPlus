@@ -7,7 +7,7 @@ import {
   ProfessorRole,
   StudentRole,
 } from "@/model/db_models/roles";
-import { applicationConnections } from "./seedApplications";
+import  applicationConnections  from "./seedApplications";
 
 const seedErasmus = async () => {
   const seeded = {};

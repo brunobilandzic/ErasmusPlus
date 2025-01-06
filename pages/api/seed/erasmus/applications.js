@@ -1,11 +1,11 @@
-import { applicationConnections } from "@/seed/seedApplications";
+import  addApplicationConnections  from "@/seed/seedApplications";
 
 export default async function handler (req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
 
-  const results = await applicationConnections();
+  const results = await addApplicationConnections();
 
   return res.status(201).json({
     message: "Application connections seeded successfully",
