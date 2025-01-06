@@ -7,7 +7,7 @@ import {
   ProfessorRole,
   StudentRole,
 } from "@/model/db_models/roles";
-import  applicationConnections  from "./seedApplications";
+import applicationConnections, { futurePast } from "./seedApplications";
 
 const seedErasmus = async () => {
   const seeded = {};
@@ -47,6 +47,9 @@ const seedEntity = async (model, data) => {
 
   const insert = data.map(async (item) => {
     const entity = new model(item);
+
+    model === ErasmusProgram &&
+      (entity.isFinsihed = futurePast(item.year, item.month, false));
     await entity.save();
     seeded.push(entity);
   });

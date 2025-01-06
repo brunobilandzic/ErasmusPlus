@@ -82,6 +82,9 @@ const erasmusProgramSchema = {
       default: [],
     },
   ],
+  isFinished: {
+    type: Boolean,
+  },
 };
 
 const evidentionSchema = {

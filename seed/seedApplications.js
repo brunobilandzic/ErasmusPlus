@@ -258,7 +258,7 @@ const transformCompatible = (outerc, future) => {
   return compatible;
 };
 
-const futurePast = (y, m, future) => {
+export const futurePast = (y, m, future) => {
   const now = new Date();
   const date = new Date(y, m);
   const isFuture = future ? date > now : date < now;
