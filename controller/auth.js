@@ -1,7 +1,12 @@
-import { User } from "@/model/db_models/auth";
-import dbConnect from "@/model/mongooseConnect";
-import { SignJWT, jwtVerify } from "jose";
 import mongoose from "mongoose";
+import dbConnect from "@/model/mongooseConnect";
+import { User } from "@/model/db_models/auth";
+import {
+  StudentRole,
+  AdminRole,
+  CoordinatorRole,
+} from "@/model/db_models/roles";
+import { SignJWT, jwtVerify } from "jose";
 
 // Function to sign a JWT token for a user
 export const signToken = async (user) => {
@@ -40,7 +45,6 @@ export const getUser = async (id) => {
   return user;
 };
 
-
 // Function to verify a JWT token
 export const verifyToken = async (token) => {
   if (
@@ -58,7 +62,6 @@ export const verifyToken = async (token) => {
   } // Log the decoded payload
   return decoded; // Return the decoded payload
 };
-
 
 export const getUserFromToken = async (authorization) => {
   const token = authorization?.split(" ")[1]; // Get the token from the authorization header

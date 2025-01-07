@@ -5,7 +5,7 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { login } from "@/redux/slices/authSlice";
 import { useRouter } from "next/router";
-
+import loginUsers  from "@/seed/data/login-data";
 // Register component
 export function Register() {
   const [userCredentials, setuserCredentials] = useState({
@@ -104,7 +104,7 @@ export function Register() {
         </select>
         <button
           type="submit"
-          className="bg-blue-500 text-white p-3 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          className="button">
           Register
         </button>
       </form>
@@ -156,7 +156,7 @@ export const Login = () => {
       <h1 className="text-2xl font-bold">Login</h1>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col space-y-4 w-full max-w-md">
+        className="flex flex-col space-y-4 w-full max-w-md pb-32">
         <input
           value={userCredentials.username}
           onChange={handleChange}
@@ -182,10 +182,31 @@ export const Login = () => {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 text-white p-3 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          className="button">
           Login
         </button>
       </form>
+      <div className="text-lg grid grid-cols-1 md:grid-cols-4 gap-4 w-full">
+        <div className="border p-4 rounded">
+          <div className="text-2xl ">Students</div>
+          <div className="text-gray-600">S1: {loginUsers.s1.username}</div>
+          <div className="text-gray-600">S2: {loginUsers.s2.username}</div>
+        </div>
+        <div className="border p-4 rounded">
+          <div className="text-2xl ">Professors</div>
+          <div className="text-gray-600">P1: {loginUsers.p1.username}</div>
+          <div className="text-gray-600">P2: {loginUsers.p2.username}</div>
+        </div>
+        <div className="border p-4 rounded">
+          <div className="text-2xl ">Coordinators</div>
+          <div className="text-gray-600">C1: {loginUsers.c1.username}</div>
+          <div className="text-gray-600">C2: {loginUsers.c2.username}</div>
+        </div>
+        <div className="border p-4 rounded">
+          <div className="text-2xl ">Admin</div>
+          <div className="text-gray-600">A1: {loginUsers.a1.username}</div>
+        </div>
+      </div>
     </div>
   );
 };

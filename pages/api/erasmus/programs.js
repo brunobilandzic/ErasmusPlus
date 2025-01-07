@@ -10,12 +10,12 @@ export default async function handler(req, res) {
 
   let erasmusPrograms, message;
   if (university || user) {
-    message = "University compatible programs";
+    message = "university compatible programs";
     erasmusPrograms = await universityCompatiblePrograms(
       university || user[user.role].university
     );
   } else {
-    message = "All Erasmus programs";
+    message = "all Erasmus programs";
     erasmusPrograms = await getAllErasmusPrograms();
   }
 
