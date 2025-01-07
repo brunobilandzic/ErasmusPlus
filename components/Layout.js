@@ -5,7 +5,6 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "../redux/store";
 import { login, logout } from "../redux/slices/authSlice";
 import axios from "axios";
-import loginUsers, { usernamePassword } from "@/seed/data/login-data";
 
 export default function Layout({ children }) {
   return (
@@ -33,6 +32,7 @@ const AuthWrap = ({ children }) => {
                 "Error fetching user data, probably token expired:",
                 error
               );
+              dispatch(logout());
             });
           if (response?.data?.user) {
             dispatch(login({ user: response.data.user, token }));
@@ -49,9 +49,11 @@ const AuthWrap = ({ children }) => {
 
   return (
     <>
-      <div className="relative h-screen">
+      <div className="relative h-screen flex flex-col ">
         <Navbar authState={authState} />
-        <div className="flex flex-col  items-center p-4">{children}</div>
+        <div className="flex flex-col  items-center mb-auto  p-4">
+          {children}
+        </div>
         <footer className="text-slate-200 bg-gray-800  py-5 w-full text-center ">
           {" "}
           <p className="text-sm">
@@ -167,28 +169,6 @@ export const Landing = () => {
             </div>
           </div>
         </a>
-      </div>
-      <div className="text-4xl w-full text-center font-bold">Login users:</div>
-      <div className="text-lg grid grid-cols-1 md:grid-cols-4 gap-4 w-full">
-        <div className="border p-4 rounded">
-          <div className="text-2xl ">Students</div>
-          <div className="text-gray-600">S1: {loginUsers.s1.username}</div>
-          <div className="text-gray-600">S2: {loginUsers.s2.username}</div>
-        </div>
-        <div className="border p-4 rounded">
-          <div className="text-2xl ">Professors</div>
-          <div className="text-gray-600">P1: {loginUsers.p1.username}</div>
-          <div className="text-gray-600">P2: {loginUsers.p2.username}</div>
-        </div>
-        <div className="border p-4 rounded">
-          <div className="text-2xl ">Coordinators</div>
-          <div className="text-gray-600">C1: {loginUsers.c1.username}</div>
-          <div className="text-gray-600">C2: {loginUsers.c2.username}</div>
-        </div>
-        <div className="border p-4 rounded">
-          <div className="text-2xl ">Admin</div>
-          <div className="text-gray-600">A1: {loginUsers.a1.username}</div>
-        </div>
       </div>
     </div>
   );

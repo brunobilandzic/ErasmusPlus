@@ -4,11 +4,15 @@ import { useRouter } from "next/router";
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);
-
+const router = useRouter();
   const token =
     typeof window != "undefined" && window.localStorage.getItem("token");
 
   useEffect(() => {
+    if (!token) {
+      router.push("/login");
+      return
+    };
     const fetchApplications = async () => {
       const response = await axios.get("/api/erasmus/applications", {
         headers: { Authorization: `Bearer ${token}` },
@@ -58,6 +62,7 @@ const NewApplication = () => {
 
   return (
     <div
+      className="button"
       onClick={() => {
         router.push("applications/new");
       }}>
