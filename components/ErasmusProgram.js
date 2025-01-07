@@ -85,7 +85,7 @@ const ErasmusPrograms = ({}) => {
               programs {erasmusPrograms?.length} universities
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="">
             {erasmusPrograms?.map((universityPrograms, i) => (
               <ErasmusProgramItem
                 key={uuid()}
@@ -103,20 +103,21 @@ export const ErasmusProgramItem = ({ universityPrograms }) => {
   const { university, programs } = universityPrograms;
   console.log(universityPrograms);
   return (
-    <div className="border p-4">
+    <div className="border p-4 w-full mb-6">
       <div className="mb-2">
         <div className="text-lg font-bold ">{university?.name}</div>
         <div>{university?.location}</div>
       </div>
       <div className="flex flex-col gap-2">
         {programs?.map((erasmusProgram, i) => (
-          <>
-            <div className="font-bold">
+          <div key={uuid()} className="border-b p-4">
+            <div className="">
               {erasmusProgram.month}/{erasmusProgram.year} {erasmusProgram.name}
             </div>
             <div></div>
+
             <div>{erasmusProgram.description}</div>
-          </>
+          </div>
         ))}
       </div>
     </div>

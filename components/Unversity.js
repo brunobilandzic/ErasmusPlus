@@ -9,7 +9,7 @@ export default function UniversityPage() {
     typeof window != "undefined" && window.localStorage.getItem("token");
 
   return (
-    <div className="text-center ">
+    <div className=" ">
       {token && (
         <>
           <ToggleCompatible
@@ -53,8 +53,16 @@ function Universities() {
     fetchUniversities();
   }, []);
   return (
-    <div>
-      <h1>Universities {universities?.length}</h1>
+    <div className="">
+      {universities?.map((universityPrograms) => (
+        <ErasmusProgramItem
+          key={uuid()}
+          universityPrograms={{
+            university: universityPrograms,
+            programs: universityPrograms.erasmusPrograms,
+          }}
+        />
+      ))}
     </div>
   );
 }
@@ -77,7 +85,7 @@ export const CompatibleUniversities = ({ uId, token }) => {
   }, [token]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div className="">
       {university?.compatibleUniversities?.map((universityPrograms) => (
         <ErasmusProgramItem
           key={uuid()}
@@ -87,15 +95,6 @@ export const CompatibleUniversities = ({ uId, token }) => {
           }}
         />
       ))}
-    </div>
-  );
-};
-
-const UniversityItem = ({ university }) => {
-  return (
-    <div>
-      <h2>{university.name}</h2>
-      <p>{university.location}</p>
     </div>
   );
 };
