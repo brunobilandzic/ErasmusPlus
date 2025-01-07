@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);
@@ -19,10 +20,13 @@ const Applications = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 gap-4">
-      {applications.map((application) => (
-        <ApplicationItem key={application._id} {...application} />
-      ))}
+    <div>
+      <div className="grid grid-cols-1 gap-4">
+        {applications.map((application) => (
+          <ApplicationItem key={application._id} {...application} />
+        ))}
+      </div>
+      <NewApplication />
     </div>
   );
 };
@@ -49,4 +53,16 @@ const ApplicationItem = ({ status, comment, erasmus }) => {
   );
 };
 
+const NewApplication = () => {
+  const router = useRouter();
+
+  return (
+    <div
+      onClick={() => {
+        router.push("applications/new");
+      }}>
+      New Application
+    </div>
+  );
+};
 export default Applications;

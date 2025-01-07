@@ -143,7 +143,7 @@ const addApplicationConnections = async () => {
       await program.save();
       await student.save();
 
-      studentPastApplications.push(application._id);
+      studentPastApplications.push(application);
     })
   );
 
@@ -217,7 +217,7 @@ const addApplicationConnections = async () => {
       await program.save();
       await professor.save();
 
-      professorPastApplications.push(application._id);
+      professorPastApplications.push(application);
     })
   );
 
@@ -233,11 +233,23 @@ const addApplicationConnections = async () => {
   return {
     studentApplicationCount: {
       future: studentFutureApplications.length,
-      past: studentPastApplications.length,
+      past: {
+        accepted: studentPastApplications.filter((a) => a.status == "accepted")
+          .length,
+        rejected: studentPastApplications.filter((a) => a.status == "rejected")
+          .length,
+      },
     },
     professorApplicationCount: {
       future: professorFutureApplications.length,
-      past: professorPastApplications.length,
+      past: {
+        accepted: professorPastApplications.filter(
+          (a) => a.status === "accepted"
+        ).length,
+        rejected: professorPastApplications.filter(
+          (a) => a.status === "rejected"
+        ).length,
+      },
     },
   };
 };

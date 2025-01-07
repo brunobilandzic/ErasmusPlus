@@ -88,18 +88,6 @@ const erasmusProgramSchema = {
 };
 
 const evidentionSchema = {
-  student: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "StudentRole",
-    description: "ID of the student",
-    default: null,
-  },
-  professor: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "ProfessorRole",
-    description: "ID of the professor",
-    default: null,
-  },
   erasmus: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ErasmusProgram",

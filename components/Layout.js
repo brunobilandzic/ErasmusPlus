@@ -22,7 +22,7 @@ const AuthWrap = ({ children }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("token");
-      if (token && token !== "undefined") {
+      if (token && token != "undefined") {
         try {
           const response = await axios
             .get("/api/auth/user", {
@@ -33,16 +33,13 @@ const AuthWrap = ({ children }) => {
                 "Error fetching user data, probably token expired:",
                 error
               );
-              dispatch(logout());
             });
           if (response?.data?.user) {
             dispatch(login({ user: response.data.user, token }));
           } else {
-            dispatch(logout());
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
-          dispatch(logout());
         }
       }
     };

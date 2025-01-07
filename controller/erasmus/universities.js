@@ -1,3 +1,6 @@
+import { University } from "@/model/db_models/erasmus";
+import { StudentRole } from "@/model/db_models/roles";
+
 export const getStudentUniversity = async (user) => {
   await dbConnect();
   const student = await StudentRole.findOne({ user: user._id }).populate(
