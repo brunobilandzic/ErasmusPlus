@@ -52,7 +52,23 @@ export const getAllErasmusPrograms = async () => {
 
 export const getErasmusProgram = async (id) => {
   await dbConnect();
-  const erasmusProgram = await ErasmusProgram.findById(id);
+  const erasmusProgram = await ErasmusProgram.findById(id)
+    .populate({
+      path: "university",
+      populate: [
+        { path: "students", populate: "user" },
+        { path: "professors", populate: "user" },
+        { path: "coordinator", populate: "user" },
+      ],
+    })
+    .populate({
+      path: "applications",
+      populate: [
+        { path: "student", populate: "user" },
+        { path: "professor", populate: "user" },
+      ],
+    })
+    .populate("applications");
 
   return erasmusProgram;
 };
@@ -88,4 +104,13 @@ export const programsValidity = async () => {
     valid,
     invalidPrograms,
   };
+};
+
+export const getUniversityPrograms = async (unId) => {
+  await dbConnect();
+  const university = await University.findById(unId).populate(
+    "erasmusPrograms"
+  );
+
+  return university.erasmusPrograms;
 };
