@@ -36,3 +36,7 @@ export const randomTruth = (probability = 0.5) => {
 export const getRandomIndex = (length) => {
   return Math.floor(Math.random() * length);
 };
+
+export const roleModelName = (role) => {
+  return `${capitalize(role)}Role`;
+};

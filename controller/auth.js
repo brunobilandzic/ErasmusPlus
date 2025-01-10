@@ -7,6 +7,7 @@ import {
   CoordinatorRole,
 } from "@/model/db_models/roles";
 import { SignJWT, jwtVerify } from "jose";
+import { RoleMap } from "@/constatns";
 
 // Function to sign a JWT token for a user
 export const signToken = async (user) => {
@@ -81,14 +82,16 @@ export const getUserFromToken = async (authorization) => {
   return user;
 };
 
-export const checkRole = async (token, role) => {
+export const getRole = async (authorization) => {
   // Get the user from the token
-  const user = await getUserFromToken(token);
+  const user = await getUserFromToken(authorization);
 
-  // Check if the user has the role
-  if (user.role !== role) {
-    return false;
-  }
+  const RoleModel = await RoleMap[user.role];
 
-  return true;
+  const role = await RoleModel.findById(user[user.role]);
+
+  return {
+    roleName: user.role,
+    role,
+  };
 };

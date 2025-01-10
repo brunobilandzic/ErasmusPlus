@@ -21,7 +21,7 @@ const AuthWrap = ({ children }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("token");
-      if (token && token != "undefined") {
+      if (token && typeof token != "undefined") {
         try {
           const response = await axios
             .get("/api/auth/user", {
@@ -85,7 +85,7 @@ const Navbar = ({ authState }) => {
             <Link href="/">Home</Link>
           </li>
           <li key={"erasmusprogramslink"} className="mb-2 md:mb-0">
-            <Link href="/erasmusprograms">Erasmus Programs</Link>
+            <Link href="/erasmus">Erasmus Programs</Link>
           </li>
           <li key={"applicationslink"} className="mb-2 md:mb-0">
             <Link href="/applications">Applications</Link>

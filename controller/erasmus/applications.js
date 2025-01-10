@@ -1,19 +1,19 @@
 import { RoleMap } from "@/constatns";
 import { Application, ErasmusProgram } from "@/model/db_models/erasmus";
 import dbConnect from "@/model/mongooseConnect";
+import { getUniversityPrograms } from "./programs";
 
-export const getUserApplications = async (user) => {
+export const getUserApplications = async (roleName, roleId) => {
   try {
     await dbConnect();
-    const roleModel = user[user.role];
-    const applicationIds = roleModel.applications;
-    const applications = await Application.find({
-      _id: { $in: applicationIds },
-    }).populate({ path: "erasmus", populate: "university" });
-    console.log(
-      `Applications for ${user.role} ${user._id} ${applications.length}:`
-    );
-    return applications;
+    const role = await RoleMap[roleName].findById(roleId).populate({
+      path: "applications",
+      populate: { path: "erasmus", populate: { path: "university" } },
+    });
+
+    console.log(role.applications);
+
+    return role.applications;
   } catch (error) {
     throw error;
   }
@@ -69,4 +69,38 @@ export const applicationRole = async (application) => {
   const user = await roleModel.findById(roleId);
 
   return user;
+};
+
+export const deleteApplication = async (id) => {
+  const application = await Application.findByIdAndDelete(id);
+  return application;
+};
+
+export const acceptApplication = async (id) => {
+  const application = await Application.findByIdAndUpdate(
+    id,
+    { status: "accepted" },
+    { new: true }
+  );
+  return application;
+};
+
+export const rejectApplication = async (id) => {
+  const application = await Application.findByIdAndUpdate(
+    id,
+    { status: "rejected" },
+    { new: true }
+  );
+  return application;
+};
+
+export const getUniversityApplications = async (unId) => {
+  const programs = await getUniversityPrograms(unId);
+  await Promise.all(
+    programs.map(async (program) => {
+      await program.populate({ path: "applications" });
+    })
+  );
+
+  return programs;
 };
