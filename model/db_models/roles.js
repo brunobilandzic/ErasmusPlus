@@ -9,6 +9,7 @@ const adminRoleSchema = new mongoose.Schema({
     description: "ID of the user with admin role",
     default: null,
   },
+  createdAt: { type: Date, default: Date.now, description: "Date when the admin role was created" },
 });
 
 // Schema for student role
@@ -70,6 +71,7 @@ const studentRoleSchema = new mongoose.Schema({
     type: Boolean, // True if the student is active in ESN
     description: "Indicates if the student is a member and active in ESN",
   },
+  createdAt: { type: Date, default: Date.now, description: "Date when the student role was created" },
 });
 
 // Schema for professor role
@@ -95,6 +97,7 @@ const professorRoleSchema = new mongoose.Schema({
       default: [],
     },
   ],
+  createdAt: { type: Date, default: Date.now, description: "Date when the professor role was created" },
 });
 
 // Schema for coordinator role
@@ -112,6 +115,7 @@ const coordinatorRoleSchema = new mongoose.Schema({
     description: "University of coordinator",
     default: null,
   },
+  createdAt: { type: Date, default: Date.now, description: "Date when the coordinator role was created" },
 });
 
 // Export AdminRole model

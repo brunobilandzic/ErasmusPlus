@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
 import { ErasmusProgramItem } from "./ErasmusProgram";
+import { useRouter } from "next/router";
 
-export default function UniversityPage() {
+export default function AllUniversityPage() {
   const [showUserCompatible, setShowUserCompatible] = useState(true);
   const token =
     typeof window != "undefined" && window.localStorage.getItem("token");
@@ -44,6 +45,7 @@ export default function UniversityPage() {
   return (
     <div className=" ">
       <div>
+        
         {!showUserCompatible && (
           <select
             onChange={handleSearch}
@@ -79,6 +81,29 @@ export default function UniversityPage() {
     </div>
   );
 }
+
+export const UniversityPage = () => {
+  const [university, setUniversity] = useState([]);
+  const token =
+    typeof window != "undefined" && window.localStorage.getItem("token");
+  const router = useRouter();
+  const id = router.query.id;
+
+  useEffect(() => {
+    const fetchUniversity = async () => {
+      const response = await axios.get("/api/erasmus/universities", {
+        params: {
+          uId: id,
+        },
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUniversity(response.data?.university);
+    };
+    token && fetchUniversity();
+  }, [token, id]);
+
+  return <>{JSON.stringify(university)}</>;
+};
 
 const ToggleCompatible = ({ showUserCompatible, setShowUserCompatible }) => {
   return (

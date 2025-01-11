@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
+import { ApplicationItem } from "./Application";
 
 const ErasmusPrograms = ({}) => {
   const [erasmusPrograms, setErasmusPrograms] = useState([]);
@@ -12,11 +13,13 @@ const ErasmusPrograms = ({}) => {
   const user = useSelector((state) => state.auth.user);
   const [allErasmusPrograms, setAllErasmusPrograms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  let role, uId;
+  const router = useRouter();
+  const [uId, setUId] = useState(null);
+
+  let role;
 
   if (user) {
     role = user.role;
-    uId = user[role]?.university;
   }
 
   const token =
@@ -28,36 +31,35 @@ const ErasmusPrograms = ({}) => {
       const response = await axios.get("/api/erasmus/programs", {
         headers: { Authorization: `Bearer ${token}` },
       });
-
+      setUId(response.data?.uId);
       setErasmusPrograms(response.data?.erasmusPrograms);
       setMessage(response.data?.message);
       setIsLoading(false);
     };
-    fetchErasmusPrograms();
-  }, [uId]);
+    token && fetchErasmusPrograms();
+  }, [token]);
 
   const toggleAll = async () => {
     const isAll = !allErasmusPrograms;
     setAllErasmusPrograms(isAll);
+    let response;
 
     if (isAll) {
       setIsLoading(true);
-      const response = await axios.get("/api/erasmus/programs");
-      setErasmusPrograms(response.data?.erasmusPrograms);
-      setMessage(response.data?.message);
-      setIsLoading(false);
+      response = await axios.get("/api/erasmus/programs");
     } else {
       setIsLoading(true);
-      const response = await axios.get("/api/erasmus/programs", {
+      response = await axios.get("/api/erasmus/programs", {
         params: {
           uId,
         },
         headers: { Authorization: `Bearer ${token}` },
       });
-      setErasmusPrograms(response.data?.erasmusPrograms);
-      setMessage(response.data?.message);
-      setIsLoading(false);
     }
+
+    setErasmusPrograms(response.data?.erasmusPrograms);
+    setMessage(response.data?.message);
+    setIsLoading(false);
   };
 
   return (
@@ -67,10 +69,17 @@ const ErasmusPrograms = ({}) => {
       ) : (
         <div>
           {user && (
-            <div onClick={toggleAll} className="button">
-              {allErasmusPrograms
-                ? "Show university programs"
-                : "Show all programs"}
+            <div className="flex gap-4 justify-center">
+              <div onClick={toggleAll} className="button-no-m">
+                {allErasmusPrograms
+                  ? "Show university programs"
+                  : "Show all programs"}
+              </div>
+              <div
+                className="button-no-m"
+                onClick={() => router.push(`universities/${uId}`)}>
+                My university
+              </div>
             </div>
           )}
 
@@ -110,7 +119,10 @@ export const ErasmusProgramItem = ({ universityPrograms }) => {
 
       <div className="flex flex-col gap-2">
         {programs?.map((erasmusProgram, i) => (
-          <Link key={uuid()} href={`/erasmus/${erasmusProgram._id}`}>
+          <Link
+            key={uuid()}
+            href={`/erasmus/${erasmusProgram._id}`}
+            target="_blank">
             <div key={uuid()} className="border-b cursor-pointer p-4">
               <div className="">
                 {erasmusProgram.month}/{erasmusProgram.year}{" "}
@@ -135,20 +147,19 @@ export const ErasmusProgram = () => {
     console.log("Erasmus Program:", erasmusProgram);
   }, [erasmusProgram]);
 
-  const fetchErasmusProgram = async () => {
-    const response = await axios.get("/api/erasmus/programs", {
-      params: {
-        eId: id,
-      },
-    });
-    if (!response.data?.erasmusProgram) {
-      notFound();
-    }
-    setErasmusProgram(response.data?.erasmusProgram);
-  };
-
   useEffect(() => {
     if (id) {
+      const fetchErasmusProgram = async () => {
+        const response = await axios.get("/api/erasmus/programs", {
+          params: {
+            eId: id,
+          },
+        });
+        if (!response.data?.erasmusProgram) {
+          notFound();
+        }
+        setErasmusProgram(response.data?.erasmusProgram);
+      };
       fetchErasmusProgram();
     }
   }, [id]);
@@ -191,9 +202,26 @@ export const ErasmusProgram = () => {
             Applications:
           </div>
           <div className="border p-4">
-            <div>{erasmusProgram.applications.length} applications</div>
+            {console.log(erasmusProgram.applications)}
+            {erasmusProgram.applications.map((application, i) => (
+              <ApplicationItem
+                key={uuid()}
+                {...application}
+                erasmus={erasmusProgram}
+                university={erasmusProgram.university}
+              />
+            ))}
           </div>
         </>
+      )}
+      {role == "student" && (
+        <div className="border p-4">
+          <div>
+            <Link href={`/applications/new/?eId=${erasmusProgram._id}`}>
+              <div className="button">Apply</div>
+            </Link>
+          </div>
+        </div>
       )}
     </div>
   );

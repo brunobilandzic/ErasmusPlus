@@ -18,7 +18,7 @@ export const signToken = async (user) => {
   })
     .setProtectedHeader({ alg: "HS256" }) // Set the algorithm to HS256
     .setIssuedAt() // Set the issued at time
-    .setExpirationTime("2h") // Set the expiration time to 2 hours
+    .setExpirationTime("1 day") // Set the expiration time to 2 hours
     .sign(key); // Sign the token with the key
 
   return token; // Return the signed token
@@ -56,11 +56,17 @@ export const verifyToken = async (token) => {
   ) {
     return false; // Return false if no token is provided
   }
-  const key = await createKey(); // Create the key for verification
-  const decoded = await jwtVerify(token, key); // Verify the token with the key
-  if (!decoded) {
-    return false; // Return false if the token is not decoded
-  } // Log the decoded payload
+  const key = await createKey();
+  let decoded; // Create the key for verification
+  try {
+    decoded = await jwtVerify(token, key); // Verify the token with the key
+    if (!decoded) {
+      return false; // Return false if the token is not decoded
+    } // Log the decoded paylo
+  } catch (error) {
+    console.log("Error verifying token", error);
+  }
+
   return decoded; // Return the decoded payload
 };
 
@@ -83,8 +89,18 @@ export const getUserFromToken = async (authorization) => {
 };
 
 export const getRole = async (authorization) => {
+  const nullRole = { role: null, roleName: null };
+
+  if (!authorization) {
+    return nullRole;
+  }
+
   // Get the user from the token
   const user = await getUserFromToken(authorization);
+
+  if (!user) {
+    return nullRole;
+  }
 
   const RoleModel = await RoleMap[user.role];
 

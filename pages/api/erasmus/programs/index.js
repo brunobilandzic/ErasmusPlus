@@ -4,18 +4,21 @@ import {
   getErasmusProgram,
   universityCompatiblePrograms,
 } from "@/controller/erasmus/programs";
+import { getUniversityForUser } from "@/controller/erasmus/universities";
 
 export default async function handler(req, res) {
   const eId = req.query.eId;
+
   let erasmusPrograms, message;
   const user = await getUserFromToken(req.headers.authorization);
 
   if (!user && !eId) {
-    message = "all Erasmus programs";
+    message = "Showing all Erasmus programs";
     erasmusPrograms = await getAllErasmusPrograms();
     return res.json({ message, erasmusPrograms });
   }
 
+  //route for single erasmus program
   if (eId) {
     const erasmusProgram = await getErasmusProgram(eId);
     if (erasmusProgram) {
@@ -27,11 +30,20 @@ export default async function handler(req, res) {
   }
 
   if (user) {
-    message = "university compatible programs";
+    const university = await getUniversityForUser(user._id);
+    message = "Showing university compatible programs";
     erasmusPrograms = await universityCompatiblePrograms(
       user[user.role].university
     );
 
-    return res.json({ message, erasmusPrograms });
+    return res.json({ message, erasmusPrograms, uId: university._id });
   }
+
+  if (user.role === "coordinator") {
+    message = `Showing university ${university.name} programs`;
+    erasmusPrograms = university.erasmusPrograms;
+    return res.json({ message, erasmusPrograms, uId: university._id });
+  }
+
+  return res.status(404).json({ message: "Not found" });
 }

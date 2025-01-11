@@ -1,5 +1,5 @@
-import UniversityPage from "@/components/Unversity";
+import AllUniversityPage from "@/components/Unversity";
 
 export default function Page({}) {
-  return <UniversityPage />;
+  return <AllUniversityPage />;
 }

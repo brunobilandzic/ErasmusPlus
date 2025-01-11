@@ -30,7 +30,12 @@ export const getAllApplicationsByStatus = async (status) => {
 };
 
 export const getApplicationById = async (id) => {
-  const application = await Application.findById(id).populate("erasmus");
+  const application = await Application.findById(id)
+    .populate("erasmus")
+    .populate([
+      { path: "student", populate: "user" },
+      { path: "professor", populate: "user" },
+    ]);
   return application;
 };
 
@@ -71,34 +76,17 @@ export const applicationRole = async (application) => {
   return user;
 };
 
-export const deleteApplication = async (id) => {
-  const application = await Application.findByIdAndDelete(id);
-  return application;
-};
-
-export const acceptApplication = async (id) => {
-  const application = await Application.findByIdAndUpdate(
-    id,
-    { status: "accepted" },
-    { new: true }
-  );
-  return application;
-};
-
-export const rejectApplication = async (id) => {
-  const application = await Application.findByIdAndUpdate(
-    id,
-    { status: "rejected" },
-    { new: true }
-  );
-  return application;
-};
-
 export const getUniversityApplications = async (unId) => {
   const programs = await getUniversityPrograms(unId);
   await Promise.all(
     programs.map(async (program) => {
-      await program.populate({ path: "applications" });
+      await program.populate({
+        path: "applications",
+        populate: [
+          { path: "student", populate: "user" },
+          { path: "professor", populate: "user" },
+        ],
+      });
     })
   );
 
