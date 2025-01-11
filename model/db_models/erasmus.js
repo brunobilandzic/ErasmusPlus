@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 
-
-
 const universitySchema = {
   name: { type: String, description: "Name of the university" },
   location: { type: String, description: "Location of the university" },
@@ -44,7 +42,11 @@ const universitySchema = {
       default: [],
     },
   ],
-  createdAt: { type: Date, default: Date.now, description: "Date when the university was created" },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    description: "Date when the university was created",
+  },
 };
 
 const erasmusProgramSchema = {
@@ -88,7 +90,11 @@ const erasmusProgramSchema = {
   isFinished: {
     type: Boolean,
   },
-  createdAt: { type: Date, default: Date.now, description: "Date when the Erasmus program was created" },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    description: "Date when the Erasmus program was created",
+  },
 };
 
 const evidentionSchema = {
@@ -111,7 +117,11 @@ const evidentionSchema = {
     default: "pending",
     description: "Status of the evidention",
   },
-  createdAt: { type: Date, default: Date.now, description: "Date when the evidention was created" },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    description: "Date when the evidention was created",
+  },
 };
 
 const ApplicationSchema = {
@@ -140,7 +150,11 @@ const ApplicationSchema = {
     description: "Status of the application",
   },
   comment: { type: String, description: "Comment on the application" },
-  createdAt: { type: Date, default: Date.now, description: "Date when the application was created" },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    description: "Date when the application was created",
+  },
 };
 
 export const University =

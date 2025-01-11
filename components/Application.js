@@ -20,8 +20,8 @@ const ApplicationsPage = () => {
   return <UserAplications />;
 };
 
-const CoordinatorsApplications = () => {
-  const [programsApplications, setProgramsApplications] = useState([]);
+export const CoordinatorsApplications = ({ fetchedData }) => {
+  const [programsApplications, setProgramsApplications] = useState(fetchedData);
   const router = useRouter();
   const token =
     typeof window != "undefined" && window.localStorage.getItem("token");
@@ -33,6 +33,7 @@ const CoordinatorsApplications = () => {
     }
   }, []);
   useEffect(() => {
+    if (fetchedData) return;
     const fetchApplications = async () => {
       const response = await axios.get("/api/erasmus/applications", {
         headers: { Authorization: `Bearer ${token}` },
@@ -312,7 +313,7 @@ const UserAplications = () => {
   );
 };
 
-const ApplicationList = ({ applications }) => {
+export const ApplicationList = ({ applications }) => {
   return (
     <div className="flex flex-col gap-4">
       {applications?.map((application) => (

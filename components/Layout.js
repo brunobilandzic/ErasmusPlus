@@ -90,13 +90,6 @@ const Navbar = ({ authState }) => {
           <li key={"applicationslink"} className="mb-2 md:mb-0">
             <Link href="/applications">Applications</Link>
           </li>
-          <li key={"universitieslink"} className="mb-2 md:mb-0">
-            <Link href="/universities">Universities</Link>
-          </li>
-
-          {authState.loggedIn && authState.user.role === "student" && (
-            <StudentNavbar />
-          )}
         </ul>
       </nav>
       <div className="flex items-center gap-2">
@@ -125,10 +118,6 @@ const Navbar = ({ authState }) => {
       </div>
     </div>
   );
-};
-
-const StudentNavbar = () => {
-  return <></>;
 };
 
 export const Landing = () => {

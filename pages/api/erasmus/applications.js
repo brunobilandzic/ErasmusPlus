@@ -4,11 +4,10 @@ import {
   getApplicationById,
   getUserApplications,
   updateApplication,
+  getProgramsApplications,
 } from "@/controller/erasmus/applications";
-import { getUniversityApplications } from "@/controller/erasmus/applications";
 
 export default async function handler(req, res) {
- 
   const { role, roleName } = await getRole(req.headers.authorization);
   const id = req.query.id;
 
@@ -28,7 +27,6 @@ export default async function handler(req, res) {
 
   if (req.method == "PUT" && id) {
     if (roleName == "coordinator" || "admin") {
-       console.log(2222);
       const application = await updateApplication(id, req.body);
       if (!application) {
         return res.status(404).json({ error: "Application not found" });
@@ -66,7 +64,7 @@ export default async function handler(req, res) {
   }
 
   if (roleName == "coordinator") {
-    const universityProgramsApplications = await getUniversityApplications(
+    const universityProgramsApplications = await getProgramsApplications(
       role.university
     );
     return res.status(200).json({

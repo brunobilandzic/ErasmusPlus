@@ -2,6 +2,7 @@ import { RoleMap } from "@/constatns";
 import { Application, ErasmusProgram } from "@/model/db_models/erasmus";
 import dbConnect from "@/model/mongooseConnect";
 import { getUniversityPrograms } from "./programs";
+import path from "path";
 
 export const getUserApplications = async (roleName, roleId) => {
   try {
@@ -26,6 +27,30 @@ export const getAllApplications = async () => {
 
 export const getAllApplicationsByStatus = async (status) => {
   const applications = await Application.find({ status }).populate("erasmus");
+  return applications;
+};
+
+export const getUniversityApplications = async (unId) => {
+  const programs = await getUniversityPrograms(unId);
+  const applications = [];
+  await Promise.all(
+    programs.map(async (program) => {
+      await program.populate({
+        path: "applications",
+        populate: [
+          { path: "student", populate: "user" },
+          { path: "professor", populate: "user" },
+        ],
+      });
+    })
+  );
+
+  programs.forEach((program) => {
+    program.applications.forEach((application) => {
+      applications.push(application);
+    });
+  });
+
   return applications;
 };
 
@@ -76,7 +101,7 @@ export const applicationRole = async (application) => {
   return user;
 };
 
-export const getUniversityApplications = async (unId) => {
+export const getProgramsApplications = async (unId) => {
   const programs = await getUniversityPrograms(unId);
   await Promise.all(
     programs.map(async (program) => {
