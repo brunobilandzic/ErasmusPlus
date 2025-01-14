@@ -8,6 +8,7 @@ import {
   StudentRole,
 } from "@/model/db_models/roles";
 import applicationConnections, { futurePast } from "./seedApplications";
+import addEvidentionConnections from "./seedEvidentions";
 
 const seedErasmus = async () => {
   const seeded = {};
@@ -275,6 +276,7 @@ export const addConnections = async () => {
   const studProfConn = await addStudentsAndProfessorsToUni();
   const cordConn = await addCoordinatorsToUni();
   const applConns = await applicationConnections();
+  const evsConns = await addEvidentionConnections();
 
   return {
     compunisCount,
@@ -282,6 +284,7 @@ export const addConnections = async () => {
     studProfConn,
     cordConn,
     applConns,
+    evsConns,
   };
 };
 
