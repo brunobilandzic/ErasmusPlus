@@ -97,7 +97,7 @@ ERASMUS_PROGRAMS
 EVIDENTIONS
 
 [
-    '{{repeat(150)}}',
+    '{{repeat(500)}}',
     {
         comment: '{{lorem(5, "sentences")}}',
         rating: '{{integer(1, 100)}}',

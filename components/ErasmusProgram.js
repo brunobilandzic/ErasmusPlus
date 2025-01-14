@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
 import { ApplicationItem } from "./Application";
+import { EvidentionItem } from "./Evidentions";
 
 const ErasmusPrograms = ({}) => {
   const [erasmusPrograms, setErasmusPrograms] = useState([]);
@@ -128,7 +129,7 @@ export const ErasmusProgramItem = ({ universityPrograms }) => {
                 {erasmusProgram.month}/{erasmusProgram.year}{" "}
                 {erasmusProgram.name}
               </div>
-              <div>visit</div> <div>{erasmusProgram.description}</div>
+              <div>{erasmusProgram.description}</div>
             </div>
           </Link>
         ))}
@@ -142,6 +143,8 @@ export const ErasmusProgram = () => {
   const { id } = router.query;
   const role = useSelector((state) => state.auth.user?.role);
   const [erasmusProgram, setErasmusProgram] = useState(null);
+
+  console.log(id);
 
   useEffect(() => {
     console.log("Erasmus Program:", erasmusProgram);
@@ -201,8 +204,7 @@ export const ErasmusProgram = () => {
           <div className="text-center my-5 text-xl font-bolder">
             Applications:
           </div>
-          <div className="border p-4">
-            {console.log(erasmusProgram.applications)}
+          <div className="border p-4 flex flex-col gap-4">
             {erasmusProgram.applications.map((application, i) => (
               <ApplicationItem
                 key={uuid()}
@@ -211,6 +213,17 @@ export const ErasmusProgram = () => {
                 university={erasmusProgram.university}
               />
             ))}
+          </div>
+          <div className="border p-4">
+            <div className="text-center my-5 text-xl font-bolder">
+              Evidentions:
+            </div>
+            <div className="border p-4 flex flex-col gap-4">
+              {erasmusProgram.evidentions.map((evidention, i) => {
+                console.log(evidention);
+                return <EvidentionItem key={uuid()} evidention={evidention} />;
+              })}
+            </div>
           </div>
         </>
       )}

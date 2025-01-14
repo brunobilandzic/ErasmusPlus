@@ -18,7 +18,7 @@ export const signToken = async (user) => {
   })
     .setProtectedHeader({ alg: "HS256" }) // Set the algorithm to HS256
     .setIssuedAt() // Set the issued at time
-    .setExpirationTime("1 day") // Set the expiration time to 2 hours
+    .setExpirationTime("5 day") // Set the expiration time to 2 hours
     .sign(key); // Sign the token with the key
 
   return token; // Return the signed token
@@ -32,16 +32,17 @@ export const createKey = async () => {
 export const getUser = async (id) => {
   // Connect to the database
   await dbConnect();
+  console.log("Getting user", id);
   // Find the user by ID
   const user = await User.findById(id).select("-password");
-
-  await mongoose.models.User.populate(user, user.role);
 
   // Check if user exists
   if (!user) {
     console.log("User not found");
     return null;
   }
+
+  await mongoose.models.User.populate(user, user.role);
 
   return user;
 };
@@ -71,7 +72,8 @@ export const verifyToken = async (token) => {
 };
 
 export const getUserFromToken = async (authorization) => {
-  const token = authorization?.split(" ")[1]; // Get the token from the authorization header
+  const token = authorization?.split(" ")[1];
+  // Get the token from the authorization header
   // Verify the token
   const decoded = await verifyToken(token);
 
@@ -104,7 +106,7 @@ export const getRole = async (authorization) => {
 
   const RoleModel = await RoleMap[user.role];
 
-  const role = await RoleModel.findById(user[user.role]);
+  const role = await RoleModel.findById(user[user.role]).populate("user");
 
   return {
     roleName: user.role,

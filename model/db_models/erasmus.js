@@ -19,6 +19,10 @@ const universitySchema = {
       default: [],
     },
   ],
+  acceptanceRating: {
+    type: Number,
+    description: "Acceptance rating of the university",
+  },
   professors: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -122,6 +126,18 @@ const evidentionSchema = {
     default: Date.now,
     description: "Date when the evidention was created",
   },
+  student: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "StudentRole",
+    description: "ID of the student",
+    default: null,
+  },
+  professor: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "ProfessorRole",
+    description: "ID of the professor",
+    default: null,
+  },
 };
 
 const ApplicationSchema = {
@@ -148,6 +164,10 @@ const ApplicationSchema = {
     enum: ["pending", "accepted", "rejected"],
     default: "pending",
     description: "Status of the application",
+  },
+  rating: {
+    type: Number,
+    description: "Rating of the application, calculated with fixed formula",
   },
   comment: { type: String, description: "Comment on the application" },
   createdAt: {

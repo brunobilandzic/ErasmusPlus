@@ -6,13 +6,18 @@ import {
   updateApplication,
   getProgramsApplications,
 } from "@/controller/erasmus/applications";
+import { Application } from "@/model/db_models/erasmus";
 
 export default async function handler(req, res) {
   const { role, roleName } = await getRole(req.headers.authorization);
   const id = req.query.id;
 
   if (!role) {
-    return res.status(401).json({ error: "Unauthorized" });
+    const applications = await Application.find();
+    return res.status(200).json({
+      applications,
+      message: "Applications retrieved successfully",
+    });
   }
   if (req.method === "POST") {
     if (!["student", "professor"].includes(roleName)) {
@@ -47,7 +52,7 @@ export default async function handler(req, res) {
     }
   }
 
-  if (req.method == "GET" && roleName == "coordinator" && id) {
+  if (req.method == "GET" && id) {
     const application = await getApplicationById(id);
     if (!application) {
       return res.status(404).json({ error: "Application not found" });

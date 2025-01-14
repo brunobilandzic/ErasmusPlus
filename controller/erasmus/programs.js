@@ -68,7 +68,13 @@ export const getErasmusProgram = async (id) => {
         { path: "professor", populate: "user" },
       ],
     })
-    .populate("applications");
+    .populate({
+      path: "evidentions",
+      populate: [
+        { path: "student", populate: "user" },
+        { path: "professor", populate: "user" },
+      ],
+    });
 
   return erasmusProgram;
 };

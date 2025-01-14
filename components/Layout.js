@@ -90,6 +90,9 @@ const Navbar = ({ authState }) => {
           <li key={"applicationslink"} className="mb-2 md:mb-0">
             <Link href="/applications">Applications</Link>
           </li>
+          <li key={"evidentionslink"} className="mb-2 md:mb-0">
+            <Link href="/evidentions">Evidentions</Link>
+          </li>
         </ul>
       </nav>
       <div className="flex items-center gap-2">

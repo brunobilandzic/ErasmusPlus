@@ -1,0 +1,187 @@
+{
+    "erasmusPrograms": [
+        {
+            "_id": "6784fa2057a3a8da4e970b52",
+            "name": "Erasmus Program excepteur",
+            "description": "Cillum aliquip excepteur sit duis enim proident voluptate mollit. Consectetur aliqua reprehenderit proident reprehenderit consectetur commodo ut id qui laboris eiusmod consequat. Dolor elit ut elit consequat exercitation aliquip officia labore commodo Lorem sit veniam. Dolore sit minim magna id aliquip. Reprehenderit id ipsum eu sit minim fugiat ad irure quis esse.",
+            "month": 9,
+            "year": 2026,
+            "university": "6784fa2057a3a8da4e970cec",
+            "evidentions": [],
+            "applications": [
+                "6784fa2057a3a8da4e970d16"
+            ],
+            "createdAt": "2025-01-13T11:33:52.489Z",
+            "__v": 1
+        },
+        {
+            "_id": "6784fa2057a3a8da4e970b8f",
+            "name": "Erasmus Program adipisicing",
+            "description": "Minim mollit incididunt Lorem exercitation nulla cillum anim tempor amet laboris do qui. Et irure ad incididunt aute et laboris occaecat nostrud ad qui. Laboris sint incididunt ea velit dolor commodo. Duis nisi sint ut reprehenderit ipsum laboris id mollit velit ullamco occaecat eu labore. Deserunt occaecat voluptate adipisicing qui esse consectetur duis nulla cillum nostrud est ad.",
+            "month": 6,
+            "year": 2027,
+            "university": "6784fa2057a3a8da4e970cec",
+            "evidentions": [],
+            "applications": [],
+            "createdAt": "2025-01-13T11:33:52.530Z",
+            "__v": 0
+        },
+        {
+            "_id": "6784fa2057a3a8da4e970b95",
+            "name": "Erasmus Program do",
+            "description": "Mollit nulla voluptate dolore minim mollit duis in mollit quis velit culpa. Veniam culpa aute cupidatat voluptate eiusmod anim. Tempor mollit eu id incididunt sint sit Lorem aute pariatur mollit consectetur est. Cupidatat tempor eu aliquip enim anim et consequat est nisi exercitation nulla anim. Ea ea occaecat exercitation exercitation ex proident ut in occaecat.",
+            "month": 11,
+            "year": 2024,
+            "university": "6784fa2057a3a8da4e970cec",
+            "evidentions": [
+                {
+                    "_id": "6784fa2057a3a8da4e970fb5",
+                    "erasmus": null,
+                    "comment": "Lorem exercitation enim officia incididunt voluptate excepteur quis commodo eu commodo aute ullamco. Voluptate do elit deserunt fugiat velit elit cillum. Non tempor culpa tempor esse minim aute ad fugiat. Sint tempor proident ea dolore enim veniam aliqua ea. Laboris exercitation ut laboris aute ipsum in.",
+                    "rating": 90,
+                    "status": "pending",
+                    "createdAt": "2025-01-13T11:33:52.943Z",
+                    "__v": 0
+                },
+                {
+                    "_id": "6784fa2057a3a8da4e970f8c",
+                    "erasmus": "6784fa2057a3a8da4e970b4d",
+                    "comment": "Laboris cillum nisi fugiat eiusmod eiusmod cupidatat est enim pariatur labore est cillum labore. Magna incididunt irure reprehenderit mollit mollit cupidatat nisi veniam fugiat qui occaecat occaecat nisi. Eu excepteur dolor do pariatur velit quis id ut esse. Reprehenderit dolore nisi nisi proident quis dolore nostrud cillum aliqua cillum. Elit ex officia commodo nostrud.",
+                    "rating": 57,
+                    "status": "rated",
+                    "createdAt": "2025-01-13T11:33:52.925Z",
+                    "__v": 0
+                },
+                {
+                    "_id": "6784fa2057a3a8da4e970fea",
+                    "erasmus": null,
+                    "comment": "Voluptate ullamco nisi veniam id velit ex Lorem aliquip laborum occaecat ut qui dolore excepteur. Consectetur ullamco eu exercitation labore commodo proident sunt in veniam mollit aute nostrud magna. Ea laborum est qui id eiusmod consequat esse labore. Tempor exercitation aliqua qui eu dolore nostrud cillum occaecat reprehenderit. Qui consequat labore cillum excepteur ipsum aliqua ipsum dolor mollit.",
+                    "rating": 22,
+                    "status": "rated",
+                    "createdAt": "2025-01-13T11:33:52.958Z",
+                    "__v": 0
+                },
+                {
+                    "_id": "6784fa2057a3a8da4e970f65",
+                    "erasmus": "6784fa2057a3a8da4e970b95",
+                    "comment": "Et amet non nisi Lorem do sunt ea est tempor. Ea eu qui deserunt nisi id aute aute. Laborum magna nisi laborum duis ad pariatur enim ex id. Eu voluptate duis veniam adipisicing aliquip culpa anim Lorem do velit. Dolore dolor dolor mollit sit sunt cupidatat nostrud.",
+                    "rating": 61,
+                    "status": "rated",
+                    "createdAt": "2025-01-13T11:33:52.910Z",
+                    "__v": 0
+                }
+            ],
+            "applications": [
+                "6784fa2057a3a8da4e970e20"
+            ],
+            "createdAt": "2025-01-13T11:33:52.534Z",
+            "__v": 5
+        },
+        {
+            "_id": "6784fa2057a3a8da4e970ba6",
+            "name": "Erasmus Program exercitation",
+            "description": "Anim duis adipisicing nostrud dolor excepteur ad mollit nulla aute consequat velit quis aliquip. Commodo duis duis sint aute nostrud esse dolore esse eiusmod magna ad id excepteur. Anim aliquip reprehenderit et Lorem ipsum ea id aliqua ad. Aliqua occaecat ipsum duis excepteur amet ullamco elit labore laboris enim. Ut culpa laborum non laboris deserunt incididunt Lorem dolor deserunt.",
+            "month": 6,
+            "year": 2028,
+            "university": "6784fa2057a3a8da4e970cec",
+            "evidentions": [],
+            "applications": [
+                "6784fa2057a3a8da4e970db5"
+            ],
+            "createdAt": "2025-01-13T11:33:52.546Z",
+            "__v": 1
+        },
+        {
+            "_id": "6784fa2057a3a8da4e970bb7",
+            "name": "Erasmus Program officia",
+            "description": "Elit duis non veniam id do proident eiusmod nostrud magna excepteur ex amet ea. Aliqua ex laborum labore proident eu sunt eiusmod anim exercitation ea. Amet est ex velit ullamco occaecat commodo aliqua sint qui. Excepteur nostrud laborum ad veniam aute occaecat laboris et minim est ipsum cupidatat ullamco sit. Veniam labore sunt culpa enim id ex consequat elit occaecat.",
+            "month": 10,
+            "year": 2024,
+            "university": "6784fa2057a3a8da4e970cec",
+            "evidentions": [],
+            "applications": [],
+            "createdAt": "2025-01-13T11:33:52.559Z",
+            "__v": 0
+        },
+        {
+            "_id": "6784fa2057a3a8da4e970bc0",
+            "name": "Erasmus Program deserunt",
+            "description": "Tempor ullamco pariatur adipisicing elit adipisicing reprehenderit laboris. Laborum excepteur incididunt et et. Elit irure ut sunt culpa nisi non et do. Duis duis nostrud consectetur aliqua labore dolor magna fugiat aliquip magna amet. Quis adipisicing duis aliqua Lorem eiusmod laboris mollit laborum deserunt magna.",
+            "month": 11,
+            "year": 2024,
+            "university": "6784fa2057a3a8da4e970cec",
+            "evidentions": [],
+            "applications": [],
+            "createdAt": "2025-01-13T11:33:52.562Z",
+            "__v": 0
+        },
+        {
+            "_id": "6784fa2057a3a8da4e970bc4",
+            "name": "Erasmus Program elit",
+            "description": "Velit excepteur ad qui proident cillum officia elit ad aute. Deserunt mollit excepteur nostrud pariatur laboris voluptate nulla anim. Labore esse ut duis irure irure consectetur duis eu. Consectetur sit dolor ut amet do ad. Nostrud enim ut nulla amet sint adipisicing minim magna.",
+            "month": 1,
+            "year": 2027,
+            "university": "6784fa2057a3a8da4e970cec",
+            "evidentions": [],
+            "applications": [],
+            "createdAt": "2025-01-13T11:33:52.562Z",
+            "__v": 0
+        },
+        {
+            "_id": "6784fa2057a3a8da4e970be2",
+            "name": "Erasmus Program velit",
+            "description": "Voluptate deserunt irure magna ad magna aliquip commodo non. Sunt voluptate dolor ad nisi nostrud et aliqua quis laborum Lorem voluptate quis. Pariatur ea amet anim tempor proident commodo adipisicing cillum pariatur exercitation ex voluptate amet. Aute anim fugiat excepteur in ea occaecat adipisicing amet amet aliqua amet mollit veniam. Adipisicing do excepteur excepteur aliqua exercitation.",
+            "month": 2,
+            "year": 2026,
+            "university": "6784fa2057a3a8da4e970cec",
+            "evidentions": [],
+            "applications": [],
+            "createdAt": "2025-01-13T11:33:52.573Z",
+            "__v": 0
+        },
+        {
+            "_id": "6784fa2057a3a8da4e970bf9",
+            "name": "Erasmus Program ad",
+            "description": "Consectetur nulla voluptate sint eu commodo officia elit commodo adipisicing elit. Pariatur do esse elit commodo consequat fugiat veniam incididunt sint. Consequat ullamco enim ipsum commodo commodo pariatur ullamco ea est esse cupidatat. Anim et dolor ad velit ullamco ullamco quis enim cupidatat voluptate. Incididunt Lorem qui quis reprehenderit cupidatat tempor.",
+            "month": 9,
+            "year": 2028,
+            "university": "6784fa2057a3a8da4e970cec",
+            "evidentions": [],
+            "applications": [],
+            "createdAt": "2025-01-13T11:33:52.578Z",
+            "__v": 0
+        },
+        {
+            "_id": "6784fa2057a3a8da4e970c05",
+            "name": "Erasmus Program pariatur",
+            "description": "Irure esse pariatur do reprehenderit ea officia cupidatat cupidatat sint occaecat. Sint labore irure magna incididunt dolore consectetur exercitation eu tempor sint. Qui ut reprehenderit commodo excepteur incididunt est mollit aliquip sint incididunt labore velit. Tempor ex reprehenderit exercitation veniam amet occaecat veniam laboris irure excepteur irure. Minim esse nisi consequat laboris cillum aliqua Lorem nostrud officia proident.",
+            "month": 6,
+            "year": 2025,
+            "university": "6784fa2057a3a8da4e970cec",
+            "evidentions": [],
+            "applications": [
+                "6784fa2057a3a8da4e970d14",
+                "6784fa2057a3a8da4e970d49",
+                "6784fa2057a3a8da4e970d80",
+                "6784fa2057a3a8da4e970d83"
+            ],
+            "createdAt": "2025-01-13T11:33:52.583Z",
+            "__v": 4
+        },
+        {
+            "_id": "6784fa2057a3a8da4e970c0d",
+            "name": "Erasmus Program non",
+            "description": "Cillum ullamco magna aliquip velit aliqua fugiat commodo. Ullamco proident in est culpa esse dolor dolor dolore pariatur consectetur dolor commodo consequat. Cillum excepteur do ipsum qui. Consectetur duis consectetur aliqua reprehenderit aliquip adipisicing sint incididunt in veniam id fugiat. In proident proident ea ea adipisicing in officia do culpa occaecat enim aliquip sunt anim.",
+            "month": 2,
+            "year": 2026,
+            "university": "6784fa2057a3a8da4e970cec",
+            "evidentions": [],
+            "applications": [
+                "6784fa2057a3a8da4e970d30"
+            ],
+            "createdAt": "2025-01-13T11:33:52.585Z",
+            "__v": 1
+        }
+    ],
+    "message": "Evidentions for coordinator Cherie Cochran"
+}

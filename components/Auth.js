@@ -5,7 +5,7 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { login } from "@/redux/slices/authSlice";
 import { useRouter } from "next/router";
-import loginUsers  from "@/seed/data/login-data";
+import loginUsers from "@/seed/data/login-data";
 // Register component
 export function Register() {
   const [userCredentials, setuserCredentials] = useState({
@@ -102,9 +102,7 @@ export function Register() {
           <option value="professor">Professor</option>
           <option value="coordinator">Coordinator</option>
         </select>
-        <button
-          type="submit"
-          className="button">
+        <button type="submit" className="button">
           Register
         </button>
       </form>
@@ -180,9 +178,7 @@ export const Login = () => {
             {showPassword ? <IoMdEyeOff /> : <IoMdEye />}
           </div>
         </div>
-        <button
-          type="submit"
-          className="button">
+        <button type="submit" className="button">
           Login
         </button>
       </form>
@@ -201,6 +197,7 @@ export const Login = () => {
           <div className="text-2xl ">Coordinators</div>
           <div className="text-gray-600">C1: {loginUsers.c1.username}</div>
           <div className="text-gray-600">C2: {loginUsers.c2.username}</div>
+          <div className="text-gray-600">C3: CO331</div>
         </div>
         <div className="border p-4 rounded">
           <div className="text-2xl ">Admin</div>

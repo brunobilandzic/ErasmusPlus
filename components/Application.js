@@ -71,7 +71,7 @@ const CoordinatorErasmusApplications = ({
 
   return (
     <div className="border p-4">
-      <Link href={`eresmus/${_id}`}>
+      <Link href={`erasmus/${_id}`}>
         <div className="border p-4">
           <div>{name}</div>
           <div>{description}</div>
@@ -181,13 +181,14 @@ const ProfessorInfo = ({ professor }) => {
   );
 };
 
-const StudentInfo = ({ student }) => {
+export const StudentInfo = ({ student }) => {
   if (!student) return null;
 
   return (
     <div className="border p-4">
       <h2 className="font-bold text-xl">Student Information</h2>
       <div>Username: {student.user.username}</div>
+      <div>Name: {student.user.name}</div>
       <div>University: {student.university.name}</div>
       <div>Grade Average: {student.grade_average}</div>
       <div>First Mobility: {student.first_mobility ? "Yes" : "No"}</div>
