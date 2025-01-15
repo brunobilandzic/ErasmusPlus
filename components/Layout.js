@@ -5,6 +5,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "../redux/store";
 import { login, logout } from "../redux/slices/authSlice";
 import axios from "axios";
+import { Router, useRouter } from "next/router";
 
 export default function Layout({ children }) {
   return (
@@ -124,6 +125,7 @@ const Navbar = ({ authState }) => {
 };
 
 export const Landing = () => {
+  const router  = useRouter()
   return (
     <div className="flex flex-col space-y-5 items-center">
       <h1 className="text-4xl font-bold">
@@ -131,7 +133,7 @@ export const Landing = () => {
       </h1>
       <div className="text-lg grid grid-cols-1 md:grid-cols-3 gap-4">
         <a href="https://nextjs.org/docs" target="_blank">
-          <div className="border p-4 rounded">
+          <div className="border grow p-4 rounded">
             <div className="text-2xl font-bold">NextJS</div>
             <div className="text-gray-600">
               React framework that enables server-side rendering and static site
@@ -141,7 +143,7 @@ export const Landing = () => {
           </div>
         </a>
         <a href="https://tailwindcss.com/docs" target="_blank">
-          <div className="border p-4 rounded">
+          <div className="border grid-flow-row p-4 rounded">
             <div className="text-2xl font-bold">Tailwindcss</div>
             <div className="text-gray-600">
               Utility-first CSS framework for rapidly building custom designs.
@@ -158,6 +160,10 @@ export const Landing = () => {
             </div>
           </div>
         </a>
+      </div>
+      <div className="flex space-x-4">
+        <div className="button" onClick={() => router.push("/login")}>Login</div>
+        <div className="button" onClick={() => router.push("/register")}>Register</div>
       </div>
     </div>
   );

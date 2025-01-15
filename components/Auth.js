@@ -154,7 +154,7 @@ export const Login = () => {
       <h1 className="text-2xl font-bold">Login</h1>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col space-y-4 w-full max-w-md pb-32">
+        className="flex flex-col space-y-4 w-full max-w-md ">
         <input
           value={userCredentials.username}
           onChange={handleChange}
@@ -182,6 +182,7 @@ export const Login = () => {
           Login
         </button>
       </form>
+      <div className="text-large font-bold">All passwords are: a</div>
       <div className="text-lg grid grid-cols-1 md:grid-cols-4 gap-4 w-full">
         <div className="border p-4 rounded">
           <div className="text-2xl ">Students</div>
