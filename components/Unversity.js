@@ -5,7 +5,7 @@ import { ErasmusProgramItem } from "./ErasmusProgram";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import Link from "next/link";
-import {  CoordinatorsApplications } from "./Application";
+import { CoordinatorsApplications } from "./Application";
 
 export default function AllUniversityPage() {
   const [showUserCompatible, setShowUserCompatible] = useState(true);
@@ -84,12 +84,13 @@ export default function AllUniversityPage() {
   );
 }
 
-const Heading = ({ role, name }) => {
+const Heading = ({ name, location, coordinator }) => {
   return (
     <div className="flex flex-col items-center mb-4">
-      <div className="page-head ">My University</div>
-      <div className="info">
-        {name}- acting as {role}
+      <div className="text-2xl font-bold">{name}</div>
+      <div>{location}</div>
+      <div>
+        Coordinator: {coordinator.user.name}, {coordinator.user.username}
       </div>
     </div>
   );
@@ -115,14 +116,14 @@ export const UniversityPage = () => {
       setUniversity(response.data?.university);
       setApplications(response.data?.applications);
     };
-    token && fetchUniversity();
+     fetchUniversity();
   }, [token, id]);
 
   if (!university) return <div>Loading...</div>;
 
   return (
     <>
-      <Heading name={university.name} role={role} />
+      <Heading name={university.name} coordinator={university.coordinator} />
       <UniversityInfo university={university} />
       {role == "coordinator" && <Applications applications={applications} />}
     </>
@@ -241,3 +242,5 @@ export const CompatibleUniversities = ({ uId, token }) => {
     </div>
   );
 };
+
+export const BrowseUniversity = () => {};

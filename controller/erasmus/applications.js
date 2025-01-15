@@ -56,7 +56,7 @@ export const getUniversityApplications = async (unId) => {
 
 export const getApplicationById = async (id) => {
   const application = await Application.findById(id)
-    .populate("erasmus")
+    .populate({ path: "erasmus", populate: "evidentions" })
     .populate([
       { path: "student", populate: "user" },
       { path: "professor", populate: "user" },
@@ -67,8 +67,12 @@ export const getApplicationById = async (id) => {
 export const createApplication = async (applicationData) => {
   const application = new Application(applicationData);
   const user = await applicationRole(application);
+  console.log(user)
   user.applications.push(application._id);
   const program = await ErasmusProgram.findById(application.erasmus);
+  program.applications.push(application._id);
+
+  await program.save();
   await user.save();
   await application.save();
   return application;

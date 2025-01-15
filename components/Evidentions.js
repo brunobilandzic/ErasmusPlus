@@ -148,3 +148,84 @@ export const EvidentionPage = ({}) => {
     </div>
   );
 };
+
+export const NewEvidention = () => {
+  const blankEvidention = {
+    comment: "",
+    rating: 0,
+  };
+  const router = useRouter();
+  const { aId } = router.query;
+  const [application, setApplication] = useState(null);
+  const [evidention, setEvidention] = useState(blankEvidention);
+  const token = typeof window !== "undefined" && localStorage.getItem("token");
+
+  useEffect(() => {
+    if (!token) return;
+    const fetchApplication = async () => {
+      const res = await axios.get(`/api/erasmus/applications`, {
+        params: {
+          id: aId,
+        },
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setApplication(res.data.application.student.id);
+      console.log(res.data.application);
+      console.log({
+        student: res.data.application.student?._id,
+        professor: res.data.application.professor?.id,
+        erasmus: res.data.application.erasmus.id,
+      });
+      setEvidention({
+        ...evidention,
+        student: res.data.application.student?._id,
+        professor: res.data.application.professor?._id,
+        erasmus: res.data.application.erasmus._id,
+      });
+    };
+
+    fetchApplication();
+  }, [aId]);
+
+  const handleChange = (e) => {
+    setEvidention({ ...evidention, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
+    if (!token) alert("no token");
+    const res = await axios.post(`/api/erasmus/evidentions`, evidention, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    console.log(res.data);
+    alert("submitted evidention");
+  };
+
+  return (
+    <div className="w-full flex flex-col gap-4">
+      {JSON.stringify(evidention)}
+      <div>
+        <div>Comment</div>
+        <textarea
+          rows={5}
+          className="w-full"
+          name="comment"
+          value={evidention.comment}
+          onChange={handleChange}
+          type="textarea"
+          placeholder="comment"
+        />
+        <div>Rating</div>
+        <input
+          type="number"
+          onChange={handleChange}
+          name="rating"
+          value={evidention.rating}
+        />
+        <div onClick={handleSubmit} className="button">
+          Submit
+        </div>
+      </div>
+    </div>
+  );
+};

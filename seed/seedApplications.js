@@ -135,7 +135,7 @@ const addApplicationConnections = async () => {
 
       application.student = student._id;
       application.erasmus = program._id;
-      application.status = randomTruth(0.75) ? "accepted" : "rejected";
+      application.status = randomTruth(0.85) ? "accepted" : "rejected";
       student.applications.push(application._id);
       program.applications.push(application._id);
 
@@ -208,7 +208,7 @@ const addApplicationConnections = async () => {
 
       application.professor = professor._id;
       application.erasmus = program._id;
-      application.status = randomTruth(0.75) ? "accepted" : "rejected";
+      application.status = randomTruth(0.85) ? "accepted" : "rejected";
 
       professor.applications.push(application._id);
       program.applications.push(application._id);

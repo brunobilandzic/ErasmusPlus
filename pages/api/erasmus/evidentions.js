@@ -1,5 +1,6 @@
 import { getRole, getUserFromToken } from "@/controller/auth";
 import {
+  createEvidention,
   getAllErasmusEvidentions,
   getUniverysityEvidentions,
 } from "@/controller/erasmus/evidentions";
@@ -9,9 +10,7 @@ export default async function handler(req, res) {
   const user = await getUserFromToken(req.headers.authorization);
   console.log("user", user);
   if (!user) {
-    const evidentions = await Evidention.find();
-
-    return res.status(200).json(evidentions);
+    return res.status(401).json({ message: "Unauthorized" });
   }
 
   const { role, roleName } = await getRole(req.headers.authorization);
@@ -19,8 +18,6 @@ export default async function handler(req, res) {
   if (!role) {
     return res.status(401).json({ message: "Unauthorized" });
   }
-
-  console.log("recreating evidentions for", roleName);
 
   const evId = req.query.evId;
   console.log("evId", evId);
@@ -31,6 +28,13 @@ export default async function handler(req, res) {
       { path: "professor", populate: "user university" },
     ]);
     return res.status(200).json(evidention);
+  }
+
+  if (req.method === "POST") {
+    console.log("creating evidention", req.body);
+    const evidention = await createEvidention(req.body);
+    console.log("evidention", evidention);
+    return res.status(201).json(evidention);
   }
 
   if (roleName == "coordinator") {

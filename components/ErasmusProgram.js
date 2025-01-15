@@ -32,12 +32,13 @@ const ErasmusPrograms = ({}) => {
       const response = await axios.get("/api/erasmus/programs", {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log(response?.data);
       setUId(response.data?.uId);
       setErasmusPrograms(response.data?.erasmusPrograms);
       setMessage(response.data?.message);
       setIsLoading(false);
     };
-    token && fetchErasmusPrograms();
+    fetchErasmusPrograms();
   }, [token]);
 
   const toggleAll = async () => {
@@ -111,19 +112,19 @@ const ErasmusPrograms = ({}) => {
 
 export const ErasmusProgramItem = ({ universityPrograms }) => {
   const { university, programs } = universityPrograms;
+  console.log(university);
   return (
     <div className="border  p-4 w-full mb-6">
-      <div className="mb-2">
-        <div className="text-lg font-bold ">{university?.name}</div>
-        <div>{university?.location}</div>
-      </div>
+      <Link href={`/universities/${university.id}`}>
+        <div className="mb-2">
+          <div className="text-lg font-bold ">{university?.name}</div>
+          <div>{university?.location}</div>
+        </div>
+      </Link>
 
       <div className="flex flex-col gap-2">
         {programs?.map((erasmusProgram, i) => (
-          <Link
-            key={uuid()}
-            href={`/erasmus/${erasmusProgram._id}`}
-            target="_blank">
+          <Link key={uuid()} href={`/erasmus/${erasmusProgram._id}`}>
             <div key={uuid()} className="border-b cursor-pointer p-4">
               <div className="">
                 {erasmusProgram.month}/{erasmusProgram.year}{" "}
@@ -143,6 +144,12 @@ export const ErasmusProgram = () => {
   const { id } = router.query;
   const role = useSelector((state) => state.auth.user?.role);
   const [erasmusProgram, setErasmusProgram] = useState(null);
+  const [participants, setParticipants] = useState({
+    accepted: [],
+    pending: [],
+    rejected: [],
+  });
+  const [future, setFuture] = useState(null);
 
   console.log(id);
 
@@ -162,10 +169,45 @@ export const ErasmusProgram = () => {
           notFound();
         }
         setErasmusProgram(response.data?.erasmusProgram);
+        isFuture(response.data?.erasmusProgram);
       };
       fetchErasmusProgram();
     }
   }, [id]);
+
+  const getParticipantInfo = () => {
+    if (!erasmusProgram) return null;
+
+    const accepted = [];
+    const pending = [];
+    const rejected = [];
+
+    erasmusProgram.applications.forEach((application) => {
+      if (application.status === "accepted") {
+        accepted.push(application);
+      } else if (application.status === "pending") {
+        pending.push(application);
+      } else {
+        rejected.push(application);
+      }
+    });
+
+    setParticipants({ accepted, pending, rejected });
+  };
+
+  useEffect(() => {
+    getParticipantInfo();
+  }, [erasmusProgram]);
+
+  const isFuture = (erasmusProgram) => {
+    if (!erasmusProgram) return null;
+
+    const erDate = new Date(erasmusProgram.year, erasmusProgram.month);
+
+    setFuture(erDate > new Date());
+
+    console.log(erDate, new Date(), erDate > new Date());
+  };
 
   if (!erasmusProgram) {
     return <div>Loading...</div>;
@@ -181,6 +223,7 @@ export const ErasmusProgram = () => {
         </div>
         <i>{erasmusProgram.description}</i>
       </div>
+      <div></div>
       <div>
         <div className="text-center my-5 text-xl font-bolder">
           University Info:
@@ -198,6 +241,40 @@ export const ErasmusProgram = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="my-5 text-xl p-4 font-bolder">
+        <div className="flex flex-col pt-4">
+          <div> {participants.accepted.length} accepted</div>
+          {role == "coordinator" && participants.accepted.length > 0 && (
+            <div>Write evidentions:</div>
+          )}
+
+          {participants.accepted.map((application, i) => (
+            <div key={uuid()}>
+              {role == "coordinator" && (
+                <Link href={`/evidentions/new/?aId=${application._id}`}>
+                  {" "}
+                  <div className="cursor-pointer hover:font-bold">
+                    {application.student.user.name}
+                  </div>
+                </Link>
+              )}
+            </div>
+          ))}
+        </div>
+        {role == "coordinator" && (
+          <>
+            <div> {participants.pending.length} pending</div>
+            {participants.pending.map((application, i) => (
+              <Link href={`/applications/${application._id}`} key={uuid()}>
+                <div className="cursor-pointer hover:font-bold">
+                  {application.student.user.name}
+                </div>
+              </Link>
+            ))}
+            <div> {participants.rejected.length} rejected</div>
+          </>
+        )}
       </div>
       {role == "coordinator" && (
         <>
@@ -227,7 +304,7 @@ export const ErasmusProgram = () => {
           </div>
         </>
       )}
-      {role == "student" && (
+      {role == "student" && future && (
         <div className="border p-4">
           <div>
             <Link href={`/applications/new/?eId=${erasmusProgram._id}`}>

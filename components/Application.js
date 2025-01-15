@@ -260,7 +260,7 @@ const ApplicationActions = ({ application }) => {
       }
     );
     console.log(response.data);
-    router.push(`/applications/${application._id}`);
+    alert("Status changed to", status);
   };
   return (
     <div className="w-full my-4">
@@ -366,13 +366,17 @@ export const ApplicationForm = () => {
   const user = useSelector((state) => state.auth.user);
   const role = useSelector((state) => state.auth.user?.role);
   const [availableErasmus, setAvailableErasmus] = useState([]);
-  const [application, setApplication] = useState(blankApplication);
+  const [application, setApplication] = useState({ ...blankApplication });
   const router = useRouter();
 
   useEffect(() => {
     if (!user || !role) {
       router.push("/login");
-    }
+    } else
+      setApplication({
+        ...application,
+        [role]: user[role]._id,
+      });
   }, [user, role]);
 
   useEffect(() => {
@@ -398,6 +402,7 @@ export const ApplicationForm = () => {
       setApplication({
         ...application,
         erasmus: erasmusId,
+        [role]: user[role]._id,
       });
     }
   }, [user, role]);

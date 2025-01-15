@@ -23,6 +23,7 @@ export default async function handler(req, res) {
     if (!["student", "professor"].includes(roleName)) {
       return res.status(403).json({ error: "Forbidden" });
     }
+    console.log("body",req.body)
     const application = await createApplication(req.body);
     console.log("application in route:\n", application);
     return res
@@ -53,6 +54,7 @@ export default async function handler(req, res) {
   }
 
   if (req.method == "GET" && id) {
+    console.log("id", id);
     const application = await getApplicationById(id);
     if (!application) {
       return res.status(404).json({ error: "Application not found" });

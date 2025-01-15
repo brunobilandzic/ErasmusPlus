@@ -3,7 +3,6 @@ import { User } from "@/model/db_models/auth";
 import { University } from "@/model/db_models/erasmus";
 import dbConnect from "@/model/mongooseConnect";
 
-
 export const getUniversityForUser = async (userId) => {
   await dbConnect();
   const user = await User.findById(userId);
@@ -29,4 +28,16 @@ export const getAllUniversities = async () => {
   const universities = await University.find().populate("erasmusPrograms");
 
   return universities;
+};
+
+export const getUniversity = async (uId) => {
+  await dbConnect();
+  const university = await University.findById(uId).populate([
+    { path: "erasmusPrograms" },
+    { path: "students", populate: "user" },
+    { path: "professors", populate: "user" },
+    { path: "coordinator", populate: "user" },
+  ]);
+
+  return university;
 };

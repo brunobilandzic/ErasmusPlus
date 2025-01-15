@@ -2,24 +2,21 @@ import { getUserFromToken } from "@/controller/auth";
 import { getProgramsApplications } from "@/controller/erasmus/applications";
 import {
   getAllUniversities,
+  getUniversity,
   getUniversityForUser,
 } from "@/controller/erasmus/universities";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    const user = await getUserFromToken(req.headers.authorization);
+    const uId = req.query.uId;
 
-    if (user) {
-      const university = await getUniversityForUser(user.id);
-      const applications = await getProgramsApplications(university.id);
+    console.log(uId);
+    if (uId) {
+      const university = await getUniversity(uId);
       return res.json({
-        applications,
-        university,
         message: "University found",
+        university,
       });
-    } else {
-      const universities = await getAllUniversities();
-      return res.json({ universities, message: "All universities" });
     }
   }
 }
