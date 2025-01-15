@@ -125,46 +125,24 @@ const Navbar = ({ authState }) => {
 };
 
 export const Landing = () => {
-  const router  = useRouter()
+  const user = useSelector((state) => state.auth.user);
+  const router = useRouter();
   return (
     <div className="flex flex-col space-y-5 items-center">
       <h1 className="text-4xl font-bold">
         Welcome Erasmus Plus mobility tracker system
       </h1>
-      <div className="text-lg grid grid-cols-1 md:grid-cols-3 gap-4">
-        <a href="https://nextjs.org/docs" target="_blank">
-          <div className="border grow p-4 rounded">
-            <div className="text-2xl font-bold">NextJS</div>
-            <div className="text-gray-600">
-              React framework that enables server-side rendering and static site
-              generation for React applications. When browsing docs, be sure to
-              be in page mode
-            </div>
+
+      {!user && (
+        <div className="flex space-x-4">
+          <div className="button" onClick={() => router.push("/login")}>
+            Login
           </div>
-        </a>
-        <a href="https://tailwindcss.com/docs" target="_blank">
-          <div className="border grid-flow-row p-4 rounded">
-            <div className="text-2xl font-bold">Tailwindcss</div>
-            <div className="text-gray-600">
-              Utility-first CSS framework for rapidly building custom designs.
-              Using classNames to style components.
-            </div>
+          <div className="button" onClick={() => router.push("/register")}>
+            Register
           </div>
-        </a>
-        <a href="https://reactjs.org/docs/getting-started.html" target="_blank">
-          <div className="border p-4 rounded">
-            <div className="text-2xl font-bold">React</div>
-            <div className="text-gray-600">
-              A JavaScript library for building user interfaces. Learn how to
-              build components and manage state in your applications.
-            </div>
-          </div>
-        </a>
-      </div>
-      <div className="flex space-x-4">
-        <div className="button" onClick={() => router.push("/login")}>Login</div>
-        <div className="button" onClick={() => router.push("/register")}>Register</div>
-      </div>
+        </div>
+      )}
     </div>
   );
 };
